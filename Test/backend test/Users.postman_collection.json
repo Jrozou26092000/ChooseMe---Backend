@@ -1,0 +1,622 @@
+{
+	"info": {
+		"_postman_id": "02518e79-faeb-46a8-be83-a2558b9f6408",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateUsers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastname\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/add",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"add"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggin with email and password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/loggin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"loggin"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show user by id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/findById",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"findById"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delet user with username and password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"password\" : \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delet user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastame\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/delete/9",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"9"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUsers validation empty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@pruv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastame\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/add?user_name=&email=@com11&password=123456&active=1&name=pass&lastname=pruv&phone=98765&points=5689",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"add"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": ""
+						},
+						{
+							"key": "email",
+							"value": "@com11"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						},
+						{
+							"key": "active",
+							"value": "1"
+						},
+						{
+							"key": "name",
+							"value": "pass"
+						},
+						{
+							"key": "lastname",
+							"value": "pruv"
+						},
+						{
+							"key": "phone",
+							"value": "98765"
+						},
+						{
+							"key": "points",
+							"value": "5689"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUsers validation short name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@pruv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastame\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/add?user_name=p&email=@com84&password=123456&active=1&name=pass&lastname=pruv&phone=98765&points=5689",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"add"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "p"
+						},
+						{
+							"key": "email",
+							"value": "@com84"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						},
+						{
+							"key": "active",
+							"value": "1"
+						},
+						{
+							"key": "name",
+							"value": "pass"
+						},
+						{
+							"key": "lastname",
+							"value": "pruv"
+						},
+						{
+							"key": "phone",
+							"value": "98765"
+						},
+						{
+							"key": "points",
+							"value": "5689"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password Validation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\" : \"gabriela\",\r\n    \"user_id\" : 19\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/password",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alter active user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080//users/delete/19/gabriela",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"",
+						"users",
+						"delete",
+						"19",
+						"gabriela"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/delete/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
