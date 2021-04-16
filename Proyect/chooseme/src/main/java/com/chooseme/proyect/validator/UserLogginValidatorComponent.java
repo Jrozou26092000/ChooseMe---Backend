@@ -15,17 +15,17 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
 	UsersRepository usersRepository;
 	Users user_check;
 	@Override
-	public void validatorLoggin(Users user) throws ApiUnprocessableEntity {
-
+	public Boolean validatorLoggin(Users user) throws ApiUnprocessableEntity {
 		user_check = usersRepository.getUserByEmail(user.getEmail());
-
-		if(user.getEmail() == null || user.getEmail().isEmpty()) {
-			message("El correo es obligatorio");
-		}else if(user_check.getEmail().isEmpty()) {
-			message("No se encontro al usuario");
-		}
-		
-		
+        if(user_check == null) {
+            return false;
+        }
+        else if(user.getEmail() == null || user.getEmail().isEmpty()) {
+            return false;
+        }
+        else {
+            return true;
+        }
 	}
 
 	private void message(String message) throws ApiUnprocessableEntity {

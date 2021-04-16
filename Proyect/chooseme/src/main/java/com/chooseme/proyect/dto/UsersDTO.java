@@ -13,12 +13,7 @@ public class UsersDTO implements Serializable {
 	private Blob user_photo;
 	private String photo_url;
 	private String user_name;
-	private String email;
-	private String password;
 	private int active;
-	private String real_name;
-	private String lastname;
-	private String phone;
 	private int points;
 	private String google_account;
 	private Timestamp created_at;

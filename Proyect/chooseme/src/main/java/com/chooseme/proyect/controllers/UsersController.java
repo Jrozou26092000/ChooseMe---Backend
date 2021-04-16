@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.chooseme.proyect.entities.NewUsers;
 import com.chooseme.proyect.entities.Users;
 
 import utils.Exceptions.ApiUnprocessableEntity;

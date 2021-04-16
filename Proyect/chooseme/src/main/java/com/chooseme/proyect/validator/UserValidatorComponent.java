@@ -5,7 +5,7 @@ package com.chooseme.proyect.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.chooseme.proyect.entities.NewUsers;
+
 import com.chooseme.proyect.entities.Users;
 
 import utils.Exceptions.ApiUnprocessableEntity;

@@ -3,7 +3,7 @@ package com.chooseme.proyect.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.chooseme.proyect.entities.NewUsers;
+
 import com.chooseme.proyect.entities.Users;
 /*
  * interface para la implementación de la clase service
