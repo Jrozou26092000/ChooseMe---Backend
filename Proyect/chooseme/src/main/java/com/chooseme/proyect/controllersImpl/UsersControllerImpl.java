@@ -74,18 +74,17 @@ public class UsersControllerImpl implements UsersController {
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
-		
-		this.logginValidator.validatorLoggin(userNew);
-		if(userService.logginUser(userNew)) {
-			//String token = getToken(userNew.getEmail());
-			System.out.println("password correcta");
-			return true;
-		}
-		
-		else {
-			System.out.println("password incorrecta");
-			return false;
-		}
+		if(this.logginValidator.validatorLoggin(userNew)) {
+            if(userService.logginUser(userNew)) {
+                System.out.println("password correcta");
+                return true;
+            }else {
+                return false;
+            }
+
+        }else {
+            return this.logginValidator.validatorLoggin(userNew);
+        }
 		
 	}
 	@Override
