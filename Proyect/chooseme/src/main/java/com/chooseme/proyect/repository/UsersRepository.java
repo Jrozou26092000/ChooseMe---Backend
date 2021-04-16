@@ -1,11 +1,9 @@
 package com.chooseme.proyect.repository;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.chooseme.proyect.entities.NewUsers;
 import com.chooseme.proyect.entities.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Integer> {
@@ -19,6 +17,7 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
     public Users getUserByEmail(@Param("email") String username);
 	
 
+	
 
 
 
