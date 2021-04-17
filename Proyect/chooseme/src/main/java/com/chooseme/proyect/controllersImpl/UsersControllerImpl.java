@@ -68,7 +68,6 @@ public class UsersControllerImpl implements UsersController {
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
 
-		
 
 		if(this.userValidator.validator(newusers)) {
 			userService.saveUser(newusers);

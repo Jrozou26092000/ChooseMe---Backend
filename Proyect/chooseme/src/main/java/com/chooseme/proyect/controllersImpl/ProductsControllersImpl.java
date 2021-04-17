@@ -18,7 +18,7 @@ import utils.Exceptions.ApiUnprocessableEntity;
 
 
 @RestController
-public abstract class ProductsControllersImpl implements ProductsController {
+public class ProductsControllersImpl implements ProductsController {
 	
 	@Autowired
 	ProductsService productService;
@@ -29,16 +29,23 @@ public abstract class ProductsControllersImpl implements ProductsController {
 		return productService.findUserByPName(product);
 	}
 	
+
 	@Override
 	@PostMapping(value = "/products/add",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addProducts(@RequestBody Products newproduct, @RequestBody String comment) {
-		
-		System.out.println("comment: " + comment);
-		System.out.println(newproduct);
+	public boolean addProducts(@RequestBody Products newproduct) {
 		/*his.userValidator.validator(newproduct);*/
 		productService.saveProduct(newproduct);
 		return true;
 	}
+	
+	/*
+	@Override
+	@PostMapping(value = "/products/review",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean addProducts(@RequestBody String review) {
+		/*his.userValidator.validator(newproduct);
+		productService.saveProduct(review);
+		return true;
+	}*/
 	
 	@Override
 	@RequestMapping(value = "/products/test", method = RequestMethod.GET, produces = "application/json")
