@@ -66,14 +66,17 @@ public class UsersControllerImpl implements UsersController {
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
 
-		System.out.println(newusers.getPasstemp());
-		System.out.println(newusers.getPassword());
-
-		this.userValidator.validator(newusers);
 		
-		userService.saveUser(newusers);
-		return true;
 
+		if(this.userValidator.validator(newusers)) {
+			userService.saveUser(newusers);
+			return true;
+
+		}else {
+			return false;
+		}
+		
+		
 		
 	}
 	
@@ -128,7 +131,7 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	public String updateUsers(Users usersNew) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

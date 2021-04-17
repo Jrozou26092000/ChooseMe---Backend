@@ -13,5 +13,5 @@ import utils.Exceptions.ApiUnprocessableEntity;
 public interface UserValidator {
 
 
-	void validator(Users newuser) throws ApiUnprocessableEntity;
+	public Boolean validator(Users newuser) throws ApiUnprocessableEntity;
 }
