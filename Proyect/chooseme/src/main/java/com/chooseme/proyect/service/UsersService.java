@@ -25,7 +25,8 @@ public interface UsersService {
 
 	public Boolean logginUser(Users userNew);
 	public Boolean deleteUsers(Users userDelete);
-	Users saveUser(Users usersNew);
+	public Users saveUser(Users usersNew);
+	public Boolean desactivateUser(Users user);
 ;
 
 

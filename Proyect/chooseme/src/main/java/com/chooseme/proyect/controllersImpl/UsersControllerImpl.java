@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,14 @@ public class UsersControllerImpl implements UsersController {
 //	@Autowired
 //	AuthenticationManager authenticationManager; 
 	
+	
+
+	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
+	@Override
+	public String perfil(@RequestHeader String Authorization) {
+	
+		return jwtTokenUtil.extractUsername(Authorization.substring(7));
+	}
 
 	@Override
 	@RequestMapping(value = "/users/findById", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +63,7 @@ public class UsersControllerImpl implements UsersController {
 
 	@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
+	public Boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
 
 		System.out.println(newusers.getPasstemp());
 		System.out.println(newusers.getPassword());
@@ -67,6 +76,12 @@ public class UsersControllerImpl implements UsersController {
 		
 	}
 	
+	@Override
+	@PostMapping(value = "/users/desactivate", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean desactivateUsers(@RequestBody Users user) {
+        return userService.desactivateUser(user);
+    }
+	
 
 	@Override
 	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,8 +92,8 @@ public class UsersControllerImpl implements UsersController {
 	// http://localhost:8080/test (GET)
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
 	@Override
-	public String test() {
-		return "Test done";
+	public Boolean test() {
+		return true;
 	}
 	
 	
@@ -99,31 +114,23 @@ public class UsersControllerImpl implements UsersController {
 		Users user = userService.findUserByEmail(userNew).get();
 		
 		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
-		
+		//System.out.println(jwtTokenUtil.extractUsername(jwt));
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
 		
-		
-//		if(userService.logginUser(userNew)) {
-//
-//			System.out.println("password correcta");
-//			return true;
-//		}
-//		
-//		else {
-//			System.out.println("password incorrecta");
-//			return false;
-//		}
-		
 	}
+	
 	@Override
 	public List<Users> getUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public String updateUsers(Users usersNew) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 	
 }

@@ -121,5 +121,23 @@ public class UsersServiceImpl implements UsersService {
 		}
 		
 	}
+
+	@Override
+	public Boolean desactivateUser(Users userDesc) {
+		user = null;
+        try {
+            user = usersRepository.getUserByUsername(userDesc.getUser_name());
+            if(BCrypt.checkpw(userDesc.getPassword(), user.getPassword()))            {
+            	
+                user.setActive(0);
+                usersRepository.save(user);
+                return true;
+            }
+        }
+        catch(NoSuchElementException ne) {
+        }
+
+        return false;
+	}
 	
 }

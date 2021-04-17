@@ -23,13 +23,16 @@ public interface UsersController {
 	//actualiza la informacion de usuario
 	public String updateUsers(Users usersNew);
 	//para testear la coneccion
-	public String test();
+	public Boolean test();
 
 	//borra un usuario, para realizar la operacion se requiere la contraseña del usuario
-	Boolean deleteUsers(Users user);
+	public Boolean deleteUsers(Users user);
 	
-	ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
-	boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
+	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
+	public Boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
+	public Boolean desactivateUsers(Users user);
+
+	public String perfil(String Authorization);
 	
 	
 
