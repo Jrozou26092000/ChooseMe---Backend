@@ -13,6 +13,10 @@ public interface ProductsController {
 
 	public Products getProductByName(Products product);
 
-	boolean addProducts(Products newproduct);
+
+	public boolean addProducts(Products newproduct, String comment);
+
+
+	public Boolean producttest();
 
 }

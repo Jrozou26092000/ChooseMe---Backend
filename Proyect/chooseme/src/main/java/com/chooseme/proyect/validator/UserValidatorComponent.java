@@ -31,8 +31,6 @@ public class UserValidatorComponent implements UserValidator {
 
 		
 		if(newusers.getUser_name() == null || newusers.getUser_name().isEmpty()) {
-			
-			
 			return false;
 		}else {
 			user = null;
@@ -49,14 +47,7 @@ public class UserValidatorComponent implements UserValidator {
 			catch(NullPointerException np) {
 				
 			}
-
-			
-			
-			
 		}
-		
-
-
 		if(newusers.getEmail() == null || newusers.getEmail().isEmpty()) {
 			return false;
 			
@@ -77,12 +68,8 @@ public class UserValidatorComponent implements UserValidator {
 				}
 			}
 			catch(NullPointerException ne) {
-		
 			}
-			
 		}
-		
-
 		if(newusers.getName() == null || newusers.getName().isEmpty()) {
 			System.out.println("nombre obligatorio");
 			return false;
