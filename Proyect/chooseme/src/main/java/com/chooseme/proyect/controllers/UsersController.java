@@ -3,6 +3,7 @@ package com.chooseme.proyect.controllers;
 import java.util.List;	
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.chooseme.proyect.entities.Users;
@@ -27,7 +28,7 @@ public interface UsersController {
 	//borra un usuario, para realizar la operacion se requiere la contraseña del usuario
 	Boolean deleteUsers(Users user);
 	
-	Boolean loggin(Users userNew) throws ApiUnprocessableEntity;
+	ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
 	boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
 	
 	

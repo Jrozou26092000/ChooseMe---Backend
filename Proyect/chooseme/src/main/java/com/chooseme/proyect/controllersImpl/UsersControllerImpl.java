@@ -1,11 +1,17 @@
 package com.chooseme.proyect.controllersImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.entities.Users;
+import com.chooseme.proyect.models.AuthenticationResponse;
 import com.chooseme.proyect.service.UsersService;
+import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
 
@@ -28,6 +36,10 @@ public class UsersControllerImpl implements UsersController {
 	UserValidatorComponent userValidator;
 	@Autowired
 	UserLogginValidator logginValidator;
+	@Autowired
+	JwtUtil jwtTokenUtil;
+//	@Autowired
+//	AuthenticationManager authenticationManager; 
 	
 
 	@Override
@@ -72,19 +84,35 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Boolean loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
+	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
-		if(this.logginValidator.validatorLoggin(userNew)) {
-            if(userService.logginUser(userNew)) {
-                System.out.println("password correcta");
-                return true;
-            }else {
-                return false;
-            }
-
-        }else {
-            return this.logginValidator.validatorLoggin(userNew);
-        }
+		this.logginValidator.validatorLoggin(userNew);
+		if (!userService.logginUser(userNew)) {
+			return null;
+		}
+//		try {
+//			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userNew.getEmail(), userNew.getPassword()));
+//		} catch (BadCredentialsException e) {
+//			throw new Exception("Incorrect username or password", e);
+//		} 
+		
+		Users user = userService.findUserByEmail(userNew).get();
+		
+		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
+		
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
+		
+		
+//		if(userService.logginUser(userNew)) {
+//
+//			System.out.println("password correcta");
+//			return true;
+//		}
+//		
+//		else {
+//			System.out.println("password incorrecta");
+//			return false;
+//		}
 		
 	}
 	@Override
