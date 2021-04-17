@@ -13,6 +13,8 @@ public interface UsersService {
 	public List<Users> findAllUsers();
 	// Busca un usuario por su id
 	public Optional<Users> findUserById(Users user);
+	// Busca un usuario por su correo
+	public Optional<Users> findUserByEmail(Users user);
 	// Crea un nuevo usuario de tipo usuario
 	//public Users saveUser(Users usersNew);
 	// Actrualiza el usuario existente

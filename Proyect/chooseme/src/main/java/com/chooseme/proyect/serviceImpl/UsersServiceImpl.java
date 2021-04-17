@@ -38,7 +38,12 @@ public class UsersServiceImpl implements UsersService {
 		return iduser_check;
 	}
 	
-
+	@Override
+	public Optional<Users> findUserByEmail(Users user) {
+		String email = user.getEmail();
+		Optional<Users> emailuser_check =  Optional.of(usersRepository.getUserByEmail(email));
+		return emailuser_check;
+	}
 
 
 	@Override
@@ -131,6 +136,5 @@ public class UsersServiceImpl implements UsersService {
 		
 		
 	}
-
 	
 }
