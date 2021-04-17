@@ -35,6 +35,13 @@ public class UsersServiceImpl implements UsersService {
 		iduser_check =  usersRepository.findById( id);
 		return iduser_check;
 	}
+
+	@Override
+	public Optional<Users> findUserByName(String name) {
+		
+		Optional<Users> userbyname =  Optional.of(usersRepository.getUserByUsername(name));
+		return userbyname;
+	}
 	
 	@Override
 	public Optional<Users> findUserByEmail(Users user) {
@@ -42,7 +49,6 @@ public class UsersServiceImpl implements UsersService {
 		Optional<Users> emailuser_check =  Optional.of(usersRepository.getUserByEmail(email));
 		return emailuser_check;
 	}
-
 
 	@Override
 	public Users saveUser(Users usersNew) {

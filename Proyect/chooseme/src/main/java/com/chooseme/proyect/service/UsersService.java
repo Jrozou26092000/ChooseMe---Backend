@@ -27,6 +27,7 @@ public interface UsersService {
 	public Boolean deleteUsers(Users userDelete);
 	public Users saveUser(Users usersNew);
 	public Boolean desactivateUser(Users user);
+	public Optional<Users> findUserByName(String name);
 ;
 
 

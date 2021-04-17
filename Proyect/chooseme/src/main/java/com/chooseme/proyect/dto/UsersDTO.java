@@ -18,4 +18,6 @@ public class UsersDTO implements Serializable {
 	private String google_account;
 	private Timestamp created_at;
 	private Timestamp modified_at;
+	public String token;
+	public boolean iftoken;
 }

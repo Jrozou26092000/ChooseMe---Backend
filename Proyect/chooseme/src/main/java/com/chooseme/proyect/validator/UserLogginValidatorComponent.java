@@ -14,6 +14,7 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
 	@Autowired
 	UsersRepository usersRepository;
 	Users user_check;
+	
 	@Override
 	public Boolean validatorLoggin(Users user) throws ApiUnprocessableEntity {
 		user_check = usersRepository.getUserByEmail(user.getEmail());

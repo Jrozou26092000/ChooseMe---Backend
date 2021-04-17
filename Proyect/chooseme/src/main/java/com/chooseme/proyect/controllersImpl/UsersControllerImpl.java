@@ -46,9 +46,10 @@ public class UsersControllerImpl implements UsersController {
 
 	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
 	@Override
-	public String perfil(@RequestHeader String Authorization) {
+	public Optional<Users> perfil(@RequestHeader String Authorization) {
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 	
-		return jwtTokenUtil.extractUsername(Authorization.substring(7));
+		return userService.findUserByName(name);
 	}
 
 	@Override

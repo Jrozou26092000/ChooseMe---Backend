@@ -32,7 +32,7 @@ public interface UsersController {
 	public Boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
 	public Boolean desactivateUsers(Users user);
 
-	public String perfil(String Authorization);
+	public Optional<Users> perfil(String Authorization);
 	
 	
 
