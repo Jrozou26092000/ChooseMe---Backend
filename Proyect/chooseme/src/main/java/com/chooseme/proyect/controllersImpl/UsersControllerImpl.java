@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
+import com.chooseme.proyect.service.ProductsService;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
@@ -66,14 +68,16 @@ public class UsersControllerImpl implements UsersController {
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
 
-		System.out.println(newusers.getPasstemp());
-		System.out.println(newusers.getPassword());
 
-		this.userValidator.validator(newusers);
+		if(this.userValidator.validator(newusers)) {
+			userService.saveUser(newusers);
+			return true;
+
+		}else {
+			return false;
+		}
 		
-		userService.saveUser(newusers);
-		return true;
-
+		
 		
 	}
 	
@@ -128,9 +132,17 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	public String updateUsers(Users usersNew) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
+	
+	@Override
+	@RequestMapping(value = "/users/test", method = RequestMethod.GET, produces = "application/json")
+	public Boolean justtest() {
+		return true;
+	}
+
+
 
 	
 	

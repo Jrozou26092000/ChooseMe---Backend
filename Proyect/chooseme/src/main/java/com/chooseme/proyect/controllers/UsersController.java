@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.entities.Users;
 
 import utils.Exceptions.ApiUnprocessableEntity;
@@ -33,6 +34,7 @@ public interface UsersController {
 	public Boolean desactivateUsers(Users user);
 
 	public Optional<Users> perfil(String Authorization);
+	Boolean justtest();
 	
 	
 

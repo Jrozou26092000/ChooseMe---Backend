@@ -35,6 +35,24 @@ public class UsersServiceImpl implements UsersService {
 		iduser_check =  usersRepository.findById( id);
 		return iduser_check;
 	}
+	
+	@Override
+	public Boolean ifFindUserById(int id) {
+		iduser_check = null;
+		
+		try {
+			iduser_check =  usersRepository.findById( id);
+		}
+		catch(NoSuchElementException ne) {}
+		catch(NullPointerException np) {}
+		if(iduser_check == null) {
+			return false;
+		}else {
+			return true;
+		}
+		
+		
+	}
 
 	@Override
 	public Optional<Users> findUserByName(String name) {

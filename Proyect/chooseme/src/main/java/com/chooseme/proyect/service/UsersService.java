@@ -28,6 +28,7 @@ public interface UsersService {
 	public Users saveUser(Users usersNew);
 	public Boolean desactivateUser(Users user);
 	public Optional<Users> findUserByName(String name);
+	public Boolean ifFindUserById(int id);
 ;
 
 

@@ -2,7 +2,9 @@ package com.chooseme.proyect.controllers;
 
 import java.util.Optional;
 
+
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.chooseme.proyect.entities.Products;
 
@@ -13,6 +15,13 @@ public interface ProductsController {
 
 	public Products getProductByName(Products product);
 
-	boolean addProducts(Products newproduct);
+
+
+
+
+	public Boolean producttest();
+
+
+	public boolean addProducts(Products newproducts);
 
 }
