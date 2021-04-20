@@ -7,7 +7,7 @@ import com.chooseme.proyect.entities.Users;
 
 public interface ProductsService {
 
-	public Products findUserByPName(Products product);
+	public Iterable<Products> findUserByPName(Products product);
 
 	public Products saveProduct(Products newproduct);
 

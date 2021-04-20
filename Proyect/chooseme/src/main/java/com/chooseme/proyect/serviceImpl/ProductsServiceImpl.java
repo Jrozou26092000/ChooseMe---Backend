@@ -13,10 +13,10 @@ import com.chooseme.proyect.service.ProductsService;
 public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	ProductsRepository productRepository;
-	Products nameproductcheck;
+	Iterable<Products> nameproductcheck;
 	
 	@Override
-	public Products findUserByPName(Products product) {
+	public Iterable<Products> findUserByPName(Products product) {
 		nameproductcheck = null;
 		String name = product.getName();
 		

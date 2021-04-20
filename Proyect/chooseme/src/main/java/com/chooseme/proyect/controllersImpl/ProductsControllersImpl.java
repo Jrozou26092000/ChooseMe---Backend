@@ -2,6 +2,8 @@ package com.chooseme.proyect.controllersImpl;
 
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class ProductsControllersImpl implements ProductsController {
 
 	@Override
 	@RequestMapping(value = "/products/findByName", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Products getProductByName(@RequestBody Products product) {
+	public Iterable<Products> getProductByName(@RequestBody Products product) {
 		return productService.findUserByPName(product);
 	}
 	

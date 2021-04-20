@@ -13,10 +13,7 @@ public interface ProductsController {
 
 
 
-	public Products getProductByName(Products product);
-
-
-
+	public Iterable<Products> getProductByName(Products product);
 
 
 	public Boolean producttest();
