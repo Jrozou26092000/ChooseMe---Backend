@@ -83,7 +83,9 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	@PostMapping(value = "/users/desactivate", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean desactivateUsers(@RequestBody Users user) {
+    public Boolean desactivateUsers(@RequestBody Users user, @RequestHeader String Authorization) {
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		user.setUser_name(name);
         return userService.desactivateUser(user);
     }
 	
