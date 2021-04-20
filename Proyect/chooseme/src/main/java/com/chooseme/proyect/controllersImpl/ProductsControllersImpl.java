@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chooseme.proyect.controllers.ProductsController;
+import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.service.ProductsService;
 
@@ -24,11 +25,18 @@ public class ProductsControllersImpl implements ProductsController {
 	
 	@Autowired
 	ProductsService productService;
-
+	Products product;
 	@Override
-	@RequestMapping(value = "/products/findByName", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Products> getProductByName(@RequestBody Products product) {
-		return productService.findUserByPName(product);
+	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
+
+		/*if(!filter.getCategory() == null) {
+		}*/
+		if(!filter.getName().isEmpty()) {
+			return productService.findUserByPName(filter);
+		}
+		//return productService.findUserByPName(filter);
+		return null;
 	}
 	
 
