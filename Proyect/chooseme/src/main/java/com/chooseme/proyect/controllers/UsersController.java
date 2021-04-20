@@ -31,10 +31,11 @@ public interface UsersController {
 	
 	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
 	public Boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
-	public Boolean desactivateUsers(Users user);
+	public Boolean desactivateUsers(Users user, String Autorization);
 
 	public Optional<Users> perfil(String Authorization);
 	Boolean justtest();
+	
 	
 	
 
