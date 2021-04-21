@@ -23,7 +23,6 @@ public class CategoriesServiceImpl implements CategoriesService {
 		
 		Categories categories = categoryRepo.getType(category);
 		int id = categories.getType_id();
-		
 		return id;
 	}
 

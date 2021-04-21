@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "product_types")
 @Table(name = "product_types")
 public class Products_Categories {
 
