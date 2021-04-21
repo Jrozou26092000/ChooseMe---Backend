@@ -19,13 +19,14 @@ public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	ProductsRepository productRepository;
 	Iterable<Products> nameproductcheck;
+	Iterable<Products> nameprod;
 	CategoriesService categoryService;
+	@Autowired
 	CategoryRepository catRepo;
 	Products product;
 	@Override
 	public Iterable<Products> findUserByPName(ProductsFilters filter) {
-		
-		nameproductcheck = null;
+
 		String name = filter.getName();
 						
 		nameproductcheck =  productRepository.getProductByProductname(name);
@@ -40,13 +41,14 @@ public class ProductsServiceImpl implements ProductsService {
 	@Override
 	public Iterable<Products> findProductByCategory(ProductsFilters filter) {
 		
-		nameproductcheck = null;
+
+		
 		String category = filter.getCategory();
+		System.out.println(category);
 		
-		//int id = categoryService.categoryByName(category);
+		nameprod = productRepository.getQuery(category);
 		
-		
-		return catRepo.getQuery(category);
+		return nameprod;
 	}
 	
 	

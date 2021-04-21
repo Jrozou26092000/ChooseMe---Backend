@@ -4,7 +4,10 @@ package com.chooseme.proyect.controllersImpl;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +41,7 @@ public class ProductsControllersImpl implements ProductsController {
 		if(!filter.getName().isEmpty()) {
 			return productService.findUserByPName(filter);
 		}
-		
+		//query = EntityManager.createQuery()
 		//return productService.findUserByPName(filter);
 		return null;
 	}

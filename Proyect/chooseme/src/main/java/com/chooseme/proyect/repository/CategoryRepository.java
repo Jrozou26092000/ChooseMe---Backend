@@ -16,10 +16,6 @@ public interface CategoryRepository extends CrudRepository<Categories, Integer>{
 	@Query("SELECT t FROM types t WHERE t.type = :type")
     public Categories getType(@Param("type") String type);
 	
-	@Query(value = "SELECT p.name FROM product_types as pt "
-			+ "JOIN products as p ON p.product_id = pt.product_id  "
-			+ "JOIN types as t ON pt.type_id = t.type_id "
-			+ "WHERE t.type = :type", nativeQuery  = true)
-	public Iterable<Products> getQuery(@Param("type") String type);
+
 	
 }

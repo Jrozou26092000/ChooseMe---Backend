@@ -14,8 +14,11 @@ public interface ProductsRepository extends CrudRepository<Products, Integer> {
 	@Query("SELECT p FROM Products p WHERE p.name = :productname")
     public Iterable<Products> getProductByProductname(@Param("productname") String productname);
 
-	/*
-	@Query("SELECT u FROM Users u WHERE u.email = :email")
-    public Products getUserByEmail(@Param("email") String username);*/
+	@Query(value = "SELECT p.product_id, p.brand, p.name, p.created_at, p.active, p.photo, p.price, p.verified, p.reviewer_id FROM product_types as pt "
+			+ "JOIN products as p ON p.product_id = pt.product_id  "
+			+ "JOIN types as t ON pt.type_id = t.type_id "
+			+ "WHERE t.type = :type ", nativeQuery  = true)
+	public Iterable<Products> getQuery(@Param("type") String type);
+	
 	
 }
