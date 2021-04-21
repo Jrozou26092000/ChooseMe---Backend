@@ -30,11 +30,11 @@ public class ProductsControllersImpl implements ProductsController {
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
 		
-		/*
+		System.out.println(filter.getCategory());
 		if(!filter.getCategory().isEmpty()) {
 			return productService.findProductByCategory(filter);
 		}
-		*/
+		
 		if(!filter.getName().isEmpty()) {
 			return productService.findUserByPName(filter);
 		}

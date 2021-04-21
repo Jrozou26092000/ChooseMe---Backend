@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
+import com.chooseme.proyect.repository.CategoryRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
 import com.chooseme.proyect.service.CategoriesService;
 import com.chooseme.proyect.service.ProductsService;
@@ -19,6 +20,7 @@ public class ProductsServiceImpl implements ProductsService {
 	ProductsRepository productRepository;
 	Iterable<Products> nameproductcheck;
 	CategoriesService categoryService;
+	CategoryRepository catRepo;
 	Products product;
 	@Override
 	public Iterable<Products> findUserByPName(ProductsFilters filter) {
@@ -41,9 +43,10 @@ public class ProductsServiceImpl implements ProductsService {
 		nameproductcheck = null;
 		String category = filter.getCategory();
 		
-		int id = categoryService.categoryByName(category);
+		//int id = categoryService.categoryByName(category);
 		
-		return null;
+		
+		return catRepo.getQuery(category);
 	}
 	
 	
