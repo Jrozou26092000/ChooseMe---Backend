@@ -44,7 +44,7 @@ public class ProductsServiceImpl implements ProductsService {
 
 		
 		String category = filter.getCategory();
-		System.out.println(category);
+
 		
 		nameprod = productRepository.getQuery(category);
 		

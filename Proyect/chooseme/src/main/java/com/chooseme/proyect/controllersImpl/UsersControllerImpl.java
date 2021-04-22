@@ -112,11 +112,7 @@ public class UsersControllerImpl implements UsersController {
 		if (!userService.logginUser(userNew)) {
 			return null;
 		}
-//		try {
-//			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userNew.getEmail(), userNew.getPassword()));
-//		} catch (BadCredentialsException e) {
-//			throw new Exception("Incorrect username or password", e);
-//		} 
+
 		
 		Users user = userService.findUserByEmail(userNew).get();
 		

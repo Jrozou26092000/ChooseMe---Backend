@@ -21,15 +21,13 @@ public class UserValidatorComponent implements UserValidator {
 	Optional <Users> user;
 	Optional <Users> user2;
 	
+	/*
+	 * validación de datos y mensajes de error
+	 */
+
 	@Override
 	public Boolean validator(Users newusers) throws ApiUnprocessableEntity {
-		
-		
-		/*
-		 * validación de datos y mensajes de error
-		 */
 
-		
 		if(newusers.getUser_name() == null || newusers.getUser_name().isEmpty()) {
 			return false;
 		}else {
