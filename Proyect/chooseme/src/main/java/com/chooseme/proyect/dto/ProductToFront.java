@@ -1,13 +1,18 @@
 package com.chooseme.proyect.dto;
 
-
+import javax.persistence.Column;
 
 public class ProductToFront {
-
+	
+	@Column(name = "name")
 	private String name;
+	@Column(name = "brand")
 	private String brand;
+	@Column(name = "price")
 	private double price;
+	@Column(name = "score")
 	private double score;
+	@Column(name = "description")
 	private String description;
 	
 	public String getName() {
