@@ -35,10 +35,10 @@ public class ProductsControllersImpl implements ProductsController {
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
 		
 		
+		return productService.findProductByCategory(filter);
 		
-		
-		if(!(filter.getCategory() == null)) {
-			return productService.findProductByCategory(filter);
+		/*if(!(filter.getCategory() == null)) {
+			
 		}
 		
 		if(!(filter.getName() == null)) {
@@ -46,7 +46,7 @@ public class ProductsControllersImpl implements ProductsController {
 		}
 		//query = EntityManager.createQuery()
 		//return productService.findUserByPName(filter);
-		return null;
+		return null;*/
 	}
 	
 

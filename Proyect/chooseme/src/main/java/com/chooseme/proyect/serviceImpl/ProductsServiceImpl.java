@@ -46,13 +46,15 @@ public class ProductsServiceImpl implements ProductsService {
 	public Iterable<Products> findProductByCategory(ProductsFilters filter) {
 		
 
-		
-		String category = filter.getCategory();
-		
-		
-		nameprod = productRepository.getQuery(category);
-		
-		
+		if(!(filter.getCategory() == null)) {
+			String nameorcat = filter.getCategory();
+			nameprod = productRepository.getQuery(nameorcat);
+		}
+		else if (!(filter.getName() == null)) {
+			String nameorcat = filter.getName();
+			nameprod = productRepository.getQuery(nameorcat);
+		}
+
 		
 		return nameprod;
 	}

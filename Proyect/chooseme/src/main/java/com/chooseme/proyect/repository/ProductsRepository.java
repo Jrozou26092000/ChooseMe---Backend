@@ -20,7 +20,8 @@ public interface ProductsRepository extends CrudRepository<Products, Integer> {
 					+ "JOIN types as t ON pt.type_id = t.type_id "
 					+ "JOIN scores as s ON p.product_id = s.product_id "
 					+ "WHERE t.type LIKE :filter "
-					+ "OR p.name LIKE :filter ", nativeQuery  = true)
+					+ "OR p.name LIKE :filter "
+					+ "ORDER BY s.score DESC", nativeQuery  = true)
 	public Iterable<Products> getQuery(@Param("filter") String filter);
 	
 	

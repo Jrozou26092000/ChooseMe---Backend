@@ -9,11 +9,19 @@ public class ProductsFilters {
 	private double stars_punctuation;
 	private int popularity;
 	private String category;
+	private String nameorcat;
 	
+	
+	public String getNameorCat() {
+		return nameorcat;
+	}
+	public void setNameorCat(String nameorcat) {
+		this.nameorcat = nameorcat;
+	}
 	public String getName() {
 		return name;
 	}
-	public void setNasstemp(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
