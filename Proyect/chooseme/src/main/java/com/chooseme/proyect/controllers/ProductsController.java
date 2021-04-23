@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.chooseme.proyect.dto.ProductToFront;
 import com.chooseme.proyect.dto.ProductsFilters;
+import com.chooseme.proyect.entities.ProductToFront;
 import com.chooseme.proyect.entities.Products;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -15,7 +15,7 @@ public interface ProductsController {
 
 
 
-	public Iterable<ProductToFront> getProductByName(ProductsFilters Filters);
+	public Iterable<Products> getProductByName(ProductsFilters Filters);
 
 
 	public Boolean producttest();

@@ -1,22 +1,26 @@
-package com.chooseme.proyect.dto;
+package com.chooseme.proyect.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
+import lombok.Data;
+
+
+@Data
 public class ProductToFront {
 	
-	@Column(name = "name")
 	private String name;
-	@Column(name = "brand")
+
 	private String brand;
-	@Column(name = "price")
+
 	private double price;
-	@Column(name = "score")
+
 	private double score;
-	@Column(name = "description")
+
 	private String description;
-	@Column(name = "photo")
+
 	private String photo;
-	@Column(name = "comments")
+
 	private String comments;
 
 	

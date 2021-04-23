@@ -11,9 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
-@Table(name = "products")
+@Entity(name = "Products")
+@Table(name = "Products")
 public class Products {
 
 	@Id
@@ -37,6 +38,24 @@ public class Products {
 	private int verified;
 	@Column(name="created_at")
 	private Timestamp created_at;
+	@Transient
+	private double score;
+	@Transient
+	private String comment;
+	
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
 	
 	@PrePersist
     public void prePersist() {
