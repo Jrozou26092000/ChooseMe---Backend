@@ -14,4 +14,6 @@ public interface UserValidator {
 
 
 	public Boolean validator(Users newuser) throws ApiUnprocessableEntity;
+
+	Boolean updateValidator(Users newusers) throws ApiUnprocessableEntity;
 }

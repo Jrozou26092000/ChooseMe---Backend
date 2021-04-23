@@ -20,6 +20,8 @@ import com.chooseme.proyect.security.MyUserDetailsService;
 import com.chooseme.proyect.serviceImpl.UsersServiceImpl;
 import com.chooseme.proyect.util.JwtUtil;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 	
@@ -38,9 +40,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		String jwt = null;
 		
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			jwt = authorizationHeader.substring(7);
-			username = jwtUtil.extractUsername(jwt);
-			
+			jwt = authorizationHeader.substring(7);			
+			try {
+				username = jwtUtil.extractUsername(jwt);
+			}
+			catch(ExpiredJwtException e){
+				
+			}
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
 				if (jwtUtil.validateToken(jwt, userDetails)) {

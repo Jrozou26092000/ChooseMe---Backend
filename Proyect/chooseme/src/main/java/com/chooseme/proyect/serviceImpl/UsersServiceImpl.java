@@ -7,20 +7,32 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;	
 import org.springframework.stereotype.Service;
 
+import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
+import com.chooseme.proyect.util.JwtUtil;
+import com.chooseme.proyect.validator.UserLogginValidator;
+import com.chooseme.proyect.validator.UserValidatorComponent;
 
 import utils.BCrypt;
+import utils.Exceptions.ApiUnprocessableEntity;
 
 
 @Service
 public class UsersServiceImpl implements UsersService {
 	@Autowired
 	UsersRepository usersRepository;
+	@Autowired
+	JwtUtil jwtTokenUtil;
+	@Autowired
+	UserValidatorComponent logginValidator;
+	
+	
 	Users user;
 	Optional<Users> iduser_check;
 	Users user_check;
+	
 	
 	@Override
 	public List<Users> findAllUsers() {
@@ -104,26 +116,28 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override
-	public String updateUsers(Users usersUpdated) {
-		
-		int num = usersUpdated.getUser_id();
-		if(usersRepository.findById( num).isPresent()) {
-			Users usersToUpdate = new Users();
-			usersToUpdate.setUser_id(usersUpdated.getUser_id());
-			usersToUpdate.setUser_name(usersUpdated.getUser_name());
-			usersToUpdate.setEmail(usersUpdated.getEmail());
-			usersToUpdate.setPassword(usersUpdated.getPassword());
-			usersToUpdate.setActive(usersUpdated.getActive());
-			usersToUpdate.setName(usersUpdated.getName());
-			usersToUpdate.setLastname(usersUpdated.getLastname());
-			usersToUpdate.setPhone(usersUpdated.getPhone());
-			usersToUpdate.setPoints(usersUpdated.getPoints());
-			usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());
-			
-			usersRepository.save(usersToUpdate);
+	public Boolean updateUsers(Users usersUpdated) throws ApiUnprocessableEntity {
+
+		Users oldUser = usersRepository.getUserByUsername(usersUpdated.getUser_name());
+		if(oldUser != null) {
+			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())){
+				usersUpdated.setPassword(usersUpdated.getPasstemp());
+				Users usersToUpdate = oldUser;
+				usersToUpdate.setUser_id(usersUpdated.getUser_id());
+				usersToUpdate.setUser_name(usersUpdated.getUser_name());
+				usersToUpdate.setPassword(BCrypt.hashpw(usersUpdated.getPasstemp(), BCrypt.gensalt()));
+				usersToUpdate.setActive(usersUpdated.getActive());
+				usersToUpdate.setPoints(usersUpdated.getPoints());
+				usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());	
+				usersToUpdate.setName(usersUpdated.getName());
+				usersToUpdate.setLastname(usersUpdated.getLastname());
+				if(logginValidator.updateValidator(usersToUpdate)) {				
+					usersRepository.save(usersToUpdate);
+					return true;
+				}				
+			}	
 		}
-		
-		return "Error al modificar el usuario";
+		return false;
 	}	
 
 	@Override
@@ -165,5 +179,21 @@ public class UsersServiceImpl implements UsersService {
 
         return false;
 	}
+	
+	@Override
+	public Optional<UsersDTO> getPerfil(String token) {
+		Users user = null;
+		UsersDTO userDTO = null;
+		try {
+			String name = jwtTokenUtil.extractUsername(token);
+			user = findUserByName(name).get();
+			userDTO = new UsersDTO(user.getUser_id(),user.getUser_photo(), user.getUser_photo_url(),user.getUser_name(),
+					user.getActive(),user.getPoints(), user.getGoogle_account(), user.getName(), user.getLastname(), token);	
+		}catch(NullPointerException e){			
+		}
+	   return Optional.ofNullable(userDTO);
+	}
+	
+	
 	
 }

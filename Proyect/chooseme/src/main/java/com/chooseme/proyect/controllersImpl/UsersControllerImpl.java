@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
@@ -54,10 +55,8 @@ public class UsersControllerImpl implements UsersController {
 
 	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
 	@Override
-	public Optional<Users> perfil(@RequestHeader String Authorization) {
-		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-	
-		return userService.findUserByName(name);
+	public Optional<UsersDTO> perfil(@RequestHeader String Authorization) {	
+		return userService.getPerfil(Authorization.substring(7));
 	}
 
 	@Override
@@ -140,9 +139,11 @@ public class UsersControllerImpl implements UsersController {
 	}
 	
 	@Override
-	public String updateUsers(Users usersNew) {
-		
-		return null;
+	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		userNew.setUser_name(name);
+		return userService.updateUsers(userNew);
 	}
 	
 	@Override
