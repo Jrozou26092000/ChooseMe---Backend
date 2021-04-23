@@ -2,6 +2,9 @@ package com.chooseme.proyect.controllersImpl;
 
 
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -34,39 +37,22 @@ public class ProductsControllersImpl implements ProductsController {
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
 		
-		
-		return productService.findProductByCategory(filter);
-		
-		/*if(!(filter.getCategory() == null)) {
+		if(!(filter.getCategory() == null || filter.getName() == null)) {
+			return productService.findProductByCategory(filter);
+		}
+		else if(!(filter.getStars_punctuation() == 0)) {
 			
+			return productService.findProductByScore(filter.getStars_punctuation(), filter.getStars_punctuation()+1);
+		}
+		else if(!(filter.getCreate_at() == null)) {
+			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+			return productService.findByDate(timeStamp, timeStamp);
 		}
 		
-		if(!(filter.getName() == null)) {
-			return productService.findUserByPName(filter);
-		}
-		//query = EntityManager.createQuery()
-		//return productService.findUserByPName(filter);
-		return null;*/
+		return null;
 	}
 	
 
-	/*@Override
-	@PostMapping(value = "/products/add",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addProducts(@RequestBody Products newproduct) {
-		/*his.userValidator.validator(newproduct);
-		productService.saveProduct(newproduct);
-		return true;
-	}*/
-	
-	/*
-	@Override
-	@PostMapping(value = "/products/review",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addProducts(@RequestBody String review) {
-		/*his.userValidator.validator(newproduct);
-		productService.saveProduct(review);
-		return true;
-	}*/
-	
 	@Override
 	@RequestMapping(value = "/products/test", method = RequestMethod.GET, produces = "application/json")
 	public Boolean producttest() {

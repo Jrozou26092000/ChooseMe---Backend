@@ -1,5 +1,7 @@
 package com.chooseme.proyect.serviceImpl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,17 @@ public class ProductsServiceImpl implements ProductsService {
 
 		
 		return nameprod;
+	}
+	@Override
+	public Iterable<Products> findProductByScore(double stars_punctuation, double d) {
+		
+		
+		return productRepository.getByScore(stars_punctuation, d);
+	}
+	@Override
+	public Iterable<Products> findByDate(String create_atStart, String create_atEnd) {
+		
+		return  productRepository.getByDate(create_atStart, create_atEnd);
 	}
 	
 	
