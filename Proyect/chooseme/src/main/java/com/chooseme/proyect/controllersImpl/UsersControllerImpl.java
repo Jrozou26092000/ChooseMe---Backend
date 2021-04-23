@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.entities.Products;
+import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
+import com.chooseme.proyect.repository.TokensRepository;
+import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.ProductsService;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
@@ -41,7 +44,10 @@ public class UsersControllerImpl implements UsersController {
 	UserLogginValidator logginValidator;
 	@Autowired
 	JwtUtil jwtTokenUtil;
-//	@Autowired
+
+
+	@Autowired
+	TokensRepository tokenRepo;
 //	AuthenticationManager authenticationManager; 
 	
 	
@@ -107,7 +113,8 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
-		
+		Tokens token = new Tokens();
+		userNew.setActive(1);
 		this.logginValidator.validatorLoggin(userNew);
 		if (!userService.logginUser(userNew)) {
 			return null;
@@ -117,7 +124,11 @@ public class UsersControllerImpl implements UsersController {
 		Users user = userService.findUserByEmail(userNew).get();
 		
 		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
-		//System.out.println(jwtTokenUtil.extractUsername(jwt));
+		String tokenNew = jwt;
+
+		token.setToken(tokenNew);
+
+		tokenRepo.save(token);
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
 		
 	}

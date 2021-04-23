@@ -137,6 +137,8 @@ public class UsersServiceImpl implements UsersService {
 		
 		catch(NoSuchElementException ne) {
 		}
+		user_check.setActive(1);
+        usersRepository.save(user_check);
 		if(BCrypt.checkpw(usersNew.getPassword(), user_check.getPassword()))
 		{
 			return true;
