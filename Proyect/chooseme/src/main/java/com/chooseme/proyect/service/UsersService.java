@@ -3,8 +3,10 @@ package com.chooseme.proyect.service;
 import java.util.List;
 import java.util.Optional;
 
-
+import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Users;
+
+import utils.Exceptions.ApiUnprocessableEntity;
 /*
  * interface para la implementación de la clase service
  */
@@ -18,7 +20,7 @@ public interface UsersService {
 	// Crea un nuevo usuario de tipo usuario
 	//public Users saveUser(Users usersNew);
 	// Actrualiza el usuario existente
-	public String updateUsers(Users userNew);
+	public Boolean updateUsers(Users userNew) throws ApiUnprocessableEntity;
 
 	//borra un usuario ingresando su contraseña y su id
 
@@ -29,7 +31,7 @@ public interface UsersService {
 	public Boolean desactivateUser(Users user);
 	public Optional<Users> findUserByName(String name);
 	public Boolean ifFindUserById(int id);
-;
+	public Optional<UsersDTO> getPerfil(String token);
 
 
 

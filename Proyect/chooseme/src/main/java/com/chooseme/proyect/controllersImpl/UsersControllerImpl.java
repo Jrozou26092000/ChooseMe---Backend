@@ -19,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Products;
+import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
+import com.chooseme.proyect.repository.TokensRepository;
+import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.ProductsService;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
@@ -41,17 +45,18 @@ public class UsersControllerImpl implements UsersController {
 	UserLogginValidator logginValidator;
 	@Autowired
 	JwtUtil jwtTokenUtil;
-//	@Autowired
+
+
+	@Autowired
+	TokensRepository tokenRepo;
 //	AuthenticationManager authenticationManager; 
 	
 	
 
 	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
 	@Override
-	public Optional<Users> perfil(@RequestHeader String Authorization) {
-		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-	
-		return userService.findUserByName(name);
+	public Optional<UsersDTO> perfil(@RequestHeader String Authorization) {	
+		return userService.getPerfil(Authorization.substring(7));
 	}
 
 	@Override
@@ -107,21 +112,22 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
-		
+		Tokens token = new Tokens();
+		userNew.setActive(1);
 		this.logginValidator.validatorLoggin(userNew);
 		if (!userService.logginUser(userNew)) {
 			return null;
 		}
-//		try {
-//			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userNew.getEmail(), userNew.getPassword()));
-//		} catch (BadCredentialsException e) {
-//			throw new Exception("Incorrect username or password", e);
-//		} 
+
 		
 		Users user = userService.findUserByEmail(userNew).get();
 		
 		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
-		//System.out.println(jwtTokenUtil.extractUsername(jwt));
+		String tokenNew = jwt;
+
+		token.setToken(tokenNew);
+
+		tokenRepo.save(token);
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
 		
 	}
@@ -133,9 +139,11 @@ public class UsersControllerImpl implements UsersController {
 	}
 	
 	@Override
-	public String updateUsers(Users usersNew) {
-		
-		return null;
+	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		userNew.setUser_name(name);
+		return userService.updateUsers(userNew);
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.entities.Users;
 
@@ -22,7 +23,7 @@ public interface UsersController {
 	//agrega un nuevo usuario a la db
 	//boolean addUsers(NewUsers newuser) throws ApiUnprocessableEntity;
 	//actualiza la informacion de usuario
-	public String updateUsers(Users usersNew);
+	public Boolean updateUsers(Users usersNew, String Authorization) throws ApiUnprocessableEntity;
 	//para testear la coneccion
 	public Boolean test();
 
@@ -32,8 +33,7 @@ public interface UsersController {
 	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
 	public Boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
 	public Boolean desactivateUsers(Users user, String Autorization);
-
-	public Optional<Users> perfil(String Authorization);
+	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
 	
 	

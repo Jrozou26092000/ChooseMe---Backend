@@ -21,15 +21,13 @@ public class UserValidatorComponent implements UserValidator {
 	Optional <Users> user;
 	Optional <Users> user2;
 	
+	/*
+	 * validación de datos y mensajes de error
+	 */
+
 	@Override
 	public Boolean validator(Users newusers) throws ApiUnprocessableEntity {
-		
-		
-		/*
-		 * validación de datos y mensajes de error
-		 */
 
-		
 		if(newusers.getUser_name() == null || newusers.getUser_name().isEmpty()) {
 			return false;
 		}else {
@@ -103,6 +101,70 @@ public class UserValidatorComponent implements UserValidator {
 			System.out.println("las contraseñas no coinciden");
 			return false;
 		}
+		
+		if(newusers.getPhone() == null || newusers.getPhone().isEmpty()) {
+			System.out.println("campo numero vacio");
+			return false;
+			
+		}else {
+			String regexphone = "([3])+[0-9]{9}$";
+			Pattern patternphone =Pattern.compile(regexphone);
+			Matcher matcher = patternphone.matcher(newusers.getPhone());
+			if(!matcher.matches()) {
+				System.out.println("Formato de celular invalido o no colombiano");
+				return false;
+			}
+		}
+		
+		System.out.println("entrada perfecta");
+		return true;
+	}
+	
+	@Override
+	public Boolean updateValidator(Users newusers) throws ApiUnprocessableEntity {
+
+		if(newusers.getUser_name() == null || newusers.getUser_name().isEmpty()) {
+			System.out.println("username obligatorio");
+			return false;
+		}
+		
+		if(newusers.getEmail() == null || newusers.getEmail().isEmpty()) {
+			System.out.println("email obligatorio");
+			return false;
+			
+		}
+		
+		if(newusers.getName() == null || newusers.getName().isEmpty()) {
+			System.out.println("nombre obligatorio");
+			return false;
+		}else { 
+			String regexname = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$";
+			Pattern patternname =Pattern.compile(regexname);
+			Matcher matcher = patternname.matcher(newusers.getName());
+			if(!matcher.matches()) {
+				System.out.println("nombre muy largo o formato invalido");
+				return false;
+			}
+		}
+		
+		
+		if(newusers.getLastname() == null || newusers.getLastname().isEmpty()) {
+			System.out.println("apellido obligatorio");
+			return false;
+		}else {
+			String regexlastname = "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$";
+			Pattern patternlastname =Pattern.compile(regexlastname);
+			Matcher matcher = patternlastname.matcher(newusers.getLastname());
+			if(!matcher.matches()) {
+				System.out.println("Nombre muy largo o formato invalido");
+				return false;
+		}
+			
+		}
+		if(newusers.getPassword() == null || newusers.getPassword().isEmpty()) {
+			System.out.println("password necesaria");
+			return false;
+		} 		
 		
 		if(newusers.getPhone() == null || newusers.getPhone().isEmpty()) {
 			System.out.println("campo numero vacio");
