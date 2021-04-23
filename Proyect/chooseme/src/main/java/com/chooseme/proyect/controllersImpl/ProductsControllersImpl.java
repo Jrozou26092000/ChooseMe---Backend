@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chooseme.proyect.controllers.ProductsController;
+import com.chooseme.proyect.dto.ProductToFront;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.service.ProductsService;
@@ -31,7 +32,7 @@ public class ProductsControllersImpl implements ProductsController {
 	Products product;
 	@Override
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
+	public Iterable<ProductToFront> getProductByName(@RequestBody ProductsFilters filter) {
 		
 		
 		
@@ -49,13 +50,13 @@ public class ProductsControllersImpl implements ProductsController {
 	}
 	
 
-	@Override
+	/*@Override
 	@PostMapping(value = "/products/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean addProducts(@RequestBody Products newproduct) {
-		/*his.userValidator.validator(newproduct);*/
+		/*his.userValidator.validator(newproduct);
 		productService.saveProduct(newproduct);
 		return true;
-	}
+	}*/
 	
 	/*
 	@Override

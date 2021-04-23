@@ -14,6 +14,12 @@ public class ProductToFront {
 	private double score;
 	@Column(name = "description")
 	private String description;
+	@Column(name = "photo")
+	private String photo;
+	@Column(name = "comments")
+	private String comments;
+
+	
 	
 	public String getName() {
 		return name;
@@ -49,7 +55,19 @@ public class ProductToFront {
 	public void getDescription(String description) {
 		this.description = description;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	
+	public String getComments(){
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 		
 		
 }

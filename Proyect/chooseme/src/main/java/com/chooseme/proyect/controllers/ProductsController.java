@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.chooseme.proyect.dto.ProductToFront;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
 
@@ -14,12 +15,12 @@ public interface ProductsController {
 
 
 
-	public Iterable<Products> getProductByName(ProductsFilters Filters);
+	public Iterable<ProductToFront> getProductByName(ProductsFilters Filters);
 
 
 	public Boolean producttest();
 
 
-	public boolean addProducts(Products newproducts);
+	//public boolean addProducts(Products newproducts);
 
 }
