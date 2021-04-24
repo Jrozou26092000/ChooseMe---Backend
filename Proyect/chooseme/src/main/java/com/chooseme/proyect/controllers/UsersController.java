@@ -35,6 +35,7 @@ public interface UsersController {
 	public Boolean desactivateUsers(Users user, String Autorization);
 	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
+	public Boolean out(String Authorization);
 	
 	
 	

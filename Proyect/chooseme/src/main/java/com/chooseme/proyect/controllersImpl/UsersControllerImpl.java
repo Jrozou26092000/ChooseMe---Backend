@@ -112,7 +112,7 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
-		Tokens token = new Tokens();
+		
 		userNew.setActive(1);
 		this.logginValidator.validatorLoggin(userNew);
 		if (!userService.logginUser(userNew)) {
@@ -125,9 +125,9 @@ public class UsersControllerImpl implements UsersController {
 		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
 		String tokenNew = jwt;
 
-		token.setToken(tokenNew);
+		
 
-		tokenRepo.save(token);
+		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
 		
 	}
@@ -145,6 +145,17 @@ public class UsersControllerImpl implements UsersController {
 		userNew.setUser_name(name);
 		return userService.updateUsers(userNew);
 	}
+	
+	@Override
+	@RequestMapping(value = "/users/out", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean out(@RequestHeader String Authorization) {
+		Tokens token = new Tokens();
+		String tokenNew = Authorization.substring(7);
+		token.setToken(tokenNew);
+		tokenRepo.save(token);
+		return true;
+	}
+	
 	
 	@Override
 	@RequestMapping(value = "/users/test", method = RequestMethod.GET, produces = "application/json")

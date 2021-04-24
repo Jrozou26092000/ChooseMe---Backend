@@ -36,8 +36,11 @@ public class ProductsControllersImpl implements ProductsController {
 	@Override
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
-		
-		if(!(filter.getCategory() == null || filter.getName() == null)) {
+
+		if(!(filter.getCategory() == null)) {
+			return productService.findProductByCategory(filter);
+		}
+		else if(!(filter.getName() == null)) {
 			return productService.findProductByCategory(filter);
 		}
 		else if(!(filter.getStars_punctuation() == 0)) {
