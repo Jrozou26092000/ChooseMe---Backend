@@ -142,8 +142,7 @@ public class UsersControllerImpl implements UsersController {
 	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		userNew.setUser_name(name);
-		return userService.updateUsers(userNew);
+		return userService.updateUsers(userNew, name);
 	}
 	
 	@Override

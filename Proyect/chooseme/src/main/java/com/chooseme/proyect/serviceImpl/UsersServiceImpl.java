@@ -116,9 +116,9 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override
-	public Boolean updateUsers(Users usersUpdated) throws ApiUnprocessableEntity {
+	public Boolean updateUsers(Users usersUpdated, String name) throws ApiUnprocessableEntity {
 
-		Users oldUser = usersRepository.getUserByUsername(usersUpdated.getUser_name());
+		Users oldUser = usersRepository.getUserByUsername(name);
 		if(oldUser != null) {
 			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())){
 				usersUpdated.setPassword(usersUpdated.getPasstemp());
