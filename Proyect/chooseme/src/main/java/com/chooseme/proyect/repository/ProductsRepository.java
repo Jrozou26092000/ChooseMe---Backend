@@ -38,10 +38,10 @@ public interface ProductsRepository extends CrudRepository<Products, Integer> {
 			+ "JOIN products as p ON p.product_id = pt.product_id  "
 			+ "JOIN types as t ON pt.type_id = t.type_id "
 			+ "JOIN scores as s ON p.product_id = s.product_id "
-			+ "WHERE p.create_at "
+			+ "WHERE p.created_at BETWEEN :create_atStart AND :create_atEnd "
 			+ "GROUP BY p.product_id "
 			+ "ORDER BY score DESC", nativeQuery  = true)
-	public Iterable<Products> getByDate(@Param ("date") String create_atStar, @Param ("date") String create_atEnd);
+	public Iterable<Products> getByDate(@Param ("create_atStart") String create_atStart, @Param ("create_atEnd") String create_atEnd);
 	
 	
 
