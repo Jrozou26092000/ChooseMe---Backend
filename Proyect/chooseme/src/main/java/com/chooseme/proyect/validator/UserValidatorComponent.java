@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.regex.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
 import org.springframework.stereotype.Component;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.UsersRepository;

@@ -32,10 +32,10 @@ public class ProductsFilters {
 		this.create_at = create_at;
 	}
 	
-	public double getStars_punctuation() {
+	public double getStars_puntuation() {
 		return stars_puntuation;
 	}
-	public void setStars_punctuation(double stars_puntuation) {
+	public void setStars_puntuation(int stars_puntuation) {
 		this.stars_puntuation = stars_puntuation;
 	}
 	

@@ -28,13 +28,13 @@ public class ProductsControllersImpl implements ProductsController {
 	@Override
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
-		System.out.println(filter.getName());
+
 		if(!(filter.getName() == null)) {
 			return productService.findProductByCategory(filter);
 		}
-		else if(!(filter.getStars_punctuation() == 0)) {
+		else if(!(filter.getStars_puntuation() == 0)) {
 			
-			return productService.findProductByScore(filter.getStars_punctuation(), filter.getStars_punctuation()+1);
+			return productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1);
 		}
 		else if(!(filter.getCreate_at() == null)) {
 			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());

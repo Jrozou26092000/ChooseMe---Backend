@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.UsersDTO;
@@ -13,7 +12,6 @@ import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
-import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
 
 import utils.BCrypt;
