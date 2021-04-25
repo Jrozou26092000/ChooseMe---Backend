@@ -121,17 +121,33 @@ public class UsersServiceImpl implements UsersService {
 
 		Users oldUser = usersRepository.getUserByUsername(name);
 		if(oldUser != null) {
-			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())){
-				usersUpdated.setPassword(usersUpdated.getPasstemp());
+			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())
+					&& oldUser.getUser_id() == usersUpdated.getUser_id()){
+				
 				Users usersToUpdate = oldUser;
-				usersToUpdate.setUser_id(usersUpdated.getUser_id());
-				usersToUpdate.setUser_name(usersUpdated.getUser_name());
-				usersToUpdate.setPassword(BCrypt.hashpw(usersUpdated.getPasstemp(), BCrypt.gensalt()));
-				usersToUpdate.setActive(usersUpdated.getActive());
-				usersToUpdate.setPoints(usersUpdated.getPoints());
-				usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());	
-				usersToUpdate.setName(usersUpdated.getName());
-				usersToUpdate.setLastname(usersUpdated.getLastname());
+				
+				if(usersUpdated.getPasstemp()!= null && !(usersUpdated.getPasstemp().isBlank())) {
+					usersUpdated.setPassword(usersUpdated.getPasstemp());
+					usersToUpdate.setPassword(BCrypt.hashpw(usersUpdated.getPasstemp(), BCrypt.gensalt()));
+				}				
+				
+				
+				if (usersUpdated.getUser_name()!= null && !(usersUpdated.getUser_name().isBlank())) {
+					
+					if (findUserByName(usersUpdated.getUser_name())!=null && !usersUpdated.getUser_name().equals(oldUser.getUser_name())){
+						return "false";
+					}
+					usersToUpdate.setUser_name(usersUpdated.getUser_name());
+				}
+				
+				if (usersUpdated.getName()!= null && !(usersUpdated.getName().isBlank())) {
+					usersToUpdate.setName(usersUpdated.getName());
+				}
+				
+				if (usersUpdated.getLastname()!= null && !(usersUpdated.getLastname().isBlank())) {
+					usersToUpdate.setLastname(usersUpdated.getLastname());
+				}
+				
 				if(logginValidator.updateValidator(usersToUpdate)) {				
 					usersRepository.save(usersToUpdate);
 					return newToken;
