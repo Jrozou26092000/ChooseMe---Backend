@@ -23,7 +23,7 @@ public interface UsersController {
 	//agrega un nuevo usuario a la db
 	//boolean addUsers(NewUsers newuser) throws ApiUnprocessableEntity;
 	//actualiza la informacion de usuario
-	public Boolean updateUsers(Users usersNew, String Authorization) throws ApiUnprocessableEntity;
+	public ResponseEntity<?> updateUsers(Users usersNew, String Authorization) throws ApiUnprocessableEntity;
 	//para testear la coneccion
 	public Boolean test();
 

@@ -35,7 +35,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         //habilita cors y dehabilita la verificación de csrf
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/test","/users/desactivate","/users/perfil", "/users/update")
+        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/test","/users/desactivate",
+        		"/users/perfil", "/users/update","/users/out")
     	.authenticated().anyRequest()
         	.permitAll().and().sessionManagement()
         	.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

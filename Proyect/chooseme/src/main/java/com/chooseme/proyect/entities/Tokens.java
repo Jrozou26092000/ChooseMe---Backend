@@ -5,15 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "tokens")
+@Entity
+@Table(name = "Tokens")
 public class Tokens {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="token_id")
 	private int token_id;
 	@Column(name= "userstoken")
-	private String token;
+	private String userstoken;
 	
 	public int getToken_id() {
 		return token_id;
@@ -23,9 +25,9 @@ public class Tokens {
 	}
 	
 	public String getToken() {
-		return token;
+		return userstoken;
 	}
 	public void setToken(String token) {
-		this.token = token;
+		this.userstoken = token;
 	}
 }
