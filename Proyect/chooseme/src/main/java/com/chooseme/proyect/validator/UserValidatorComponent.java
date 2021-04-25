@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.regex.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
 import org.springframework.stereotype.Component;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.UsersRepository;
@@ -123,6 +122,12 @@ public class UserValidatorComponent implements UserValidator {
 	@Override
 	public Boolean updateValidator(Users newusers) throws ApiUnprocessableEntity {
 
+		if(newusers.getPassword() == null && (newusers.getPassword().isBlank())) {
+			System.out.println("contraseña obligatoria");
+			return false;
+		}			
+		
+		
 		if(newusers.getUser_name() == null || newusers.getUser_name().isEmpty()) {
 			System.out.println("username obligatorio");
 			return false;
@@ -145,7 +150,7 @@ public class UserValidatorComponent implements UserValidator {
 				System.out.println("nombre muy largo o formato invalido");
 				return false;
 			}
-		}
+		}	
 		
 		
 		if(newusers.getLastname() == null || newusers.getLastname().isEmpty()) {

@@ -3,8 +3,12 @@ package com.chooseme.proyect.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.chooseme.proyect.repository.TokensRepository;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +17,10 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
+	
+	//No estoy seguro de implementar esto aqui
+	@Autowired
+	private TokensRepository tokenRepo;
 
     private String SECRET_KEY = "secret";
 
@@ -50,6 +58,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token) && tokenRepo.getTokenByToken(token) != null);
     }
 }

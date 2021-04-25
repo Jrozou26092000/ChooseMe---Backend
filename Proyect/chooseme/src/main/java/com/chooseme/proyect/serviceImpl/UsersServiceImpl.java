@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;	
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.UsersDTO;
@@ -12,7 +12,6 @@ import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
-import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
 
 import utils.BCrypt;
@@ -116,28 +115,48 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override
-	public Boolean updateUsers(Users usersUpdated) throws ApiUnprocessableEntity {
+	public String updateUsers(Users usersUpdated, String name, String newToken) throws ApiUnprocessableEntity {
 
-		Users oldUser = usersRepository.getUserByUsername(usersUpdated.getUser_name());
+		Users oldUser = usersRepository.getUserByUsername(name);
 		if(oldUser != null) {
-			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())){
-				usersUpdated.setPassword(usersUpdated.getPasstemp());
+			if(BCrypt.checkpw(usersUpdated.getPassword(),oldUser.getPassword())
+					&& oldUser.getUser_id() == usersUpdated.getUser_id()){
+				
 				Users usersToUpdate = oldUser;
-				usersToUpdate.setUser_id(usersUpdated.getUser_id());
-				usersToUpdate.setUser_name(usersUpdated.getUser_name());
-				usersToUpdate.setPassword(BCrypt.hashpw(usersUpdated.getPasstemp(), BCrypt.gensalt()));
-				usersToUpdate.setActive(usersUpdated.getActive());
-				usersToUpdate.setPoints(usersUpdated.getPoints());
-				usersToUpdate.setGoogle_account(usersUpdated.getGoogle_account());	
-				usersToUpdate.setName(usersUpdated.getName());
-				usersToUpdate.setLastname(usersUpdated.getLastname());
+				
+				if(usersUpdated.getPasstemp()!= null && !(usersUpdated.getPasstemp().isBlank())) {
+					usersUpdated.setPassword(usersUpdated.getPasstemp());
+					usersToUpdate.setPassword(BCrypt.hashpw(usersUpdated.getPasstemp(), BCrypt.gensalt()));
+				}				
+				
+				
+				if (usersUpdated.getUser_name()!= null && !(usersUpdated.getUser_name().isBlank())) {
+					
+					Users temp = null;
+                    try {
+                        temp = findUserByName(usersUpdated.getUser_name()).get();
+                    } catch (NullPointerException e) {}
+                    if (temp !=null && !usersUpdated.getUser_name().equals(oldUser.getUser_name())){
+                        return "false";
+                    }
+                    usersToUpdate.setUser_name(usersUpdated.getUser_name());
+				}
+				
+				if (usersUpdated.getName()!= null && !(usersUpdated.getName().isBlank())) {
+					usersToUpdate.setName(usersUpdated.getName());
+				}
+				
+				if (usersUpdated.getLastname()!= null && !(usersUpdated.getLastname().isBlank())) {
+					usersToUpdate.setLastname(usersUpdated.getLastname());
+				}
+				
 				if(logginValidator.updateValidator(usersToUpdate)) {				
 					usersRepository.save(usersToUpdate);
-					return true;
+					return newToken;
 				}				
 			}	
 		}
-		return false;
+		return "false";
 	}	
 
 	@Override

@@ -112,7 +112,7 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
-		Tokens token = new Tokens();
+		
 		userNew.setActive(1);
 		this.logginValidator.validatorLoggin(userNew);
 		if (!userService.logginUser(userNew)) {
@@ -123,10 +123,8 @@ public class UsersControllerImpl implements UsersController {
 		Users user = userService.findUserByEmail(userNew).get();
 		
 		final String jwt = jwtTokenUtil.generateToken(new User(user.getUser_name(), user.getPassword(), new ArrayList<>()));
-		String tokenNew = jwt;
-
-		token.setToken(tokenNew);
-
+		Tokens token = new Tokens();
+		token.setToken(jwt);
 		tokenRepo.save(token);
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
 		
@@ -140,11 +138,35 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Boolean updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
+	public ResponseEntity<?> updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		userNew.setUser_name(name);
-		return userService.updateUsers(userNew);
+		final String newToken = jwtTokenUtil.generateToken(new User(userNew.getUser_name(), userNew.getPassword(), new ArrayList<>()));
+		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+		tokenRepo.delete(token);
+		Tokens newTokens = new Tokens();
+		newTokens.setToken(newToken);
+		tokenRepo.save(newTokens);
+		if (userNew.getPasstemp().equals(null)) {
+			return ResponseEntity.badRequest().body("La nueva contraseña esta vacia");
+		}
+		return ResponseEntity.ok(userService.updateUsers(userNew, name, newToken));
 	}
+	
+	@Override
+	@RequestMapping(value = "/users/out", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Boolean out(@RequestHeader String Authorization) {
+//		Tokens token = new Tokens();
+//		String tokenNew = Authorization.substring(7);
+//		token.setToken(tokenNew);
+//		tokenRepo.save(token);
+		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+//		if (token == null) {
+//			return false;
+//		}
+		tokenRepo.delete(token);
+		return true;
+	}
+	
 	
 	@Override
 	@RequestMapping(value = "/users/test", method = RequestMethod.GET, produces = "application/json")
