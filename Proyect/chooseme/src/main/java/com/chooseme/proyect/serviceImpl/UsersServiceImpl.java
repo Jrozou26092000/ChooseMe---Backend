@@ -134,10 +134,14 @@ public class UsersServiceImpl implements UsersService {
 				
 				if (usersUpdated.getUser_name()!= null && !(usersUpdated.getUser_name().isBlank())) {
 					
-					if (findUserByName(usersUpdated.getUser_name())!=null && !usersUpdated.getUser_name().equals(oldUser.getUser_name())){
-						return "false";
-					}
-					usersToUpdate.setUser_name(usersUpdated.getUser_name());
+					Users temp = null;
+                    try {
+                        temp = findUserByName(usersUpdated.getUser_name()).get();
+                    } catch (NullPointerException e) {}
+                    if (temp !=null && !usersUpdated.getUser_name().equals(oldUser.getUser_name())){
+                        return "false";
+                    }
+                    usersToUpdate.setUser_name(usersUpdated.getUser_name());
 				}
 				
 				if (usersUpdated.getName()!= null && !(usersUpdated.getName().isBlank())) {
