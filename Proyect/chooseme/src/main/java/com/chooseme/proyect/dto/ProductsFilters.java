@@ -2,9 +2,13 @@ package com.chooseme.proyect.dto;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ProductsFilters {
 	
-	private Date create_at;
+	private String create_at;
 	private String name;
 	private double stars_puntuation;
 	private int popularity;
@@ -25,10 +29,10 @@ public class ProductsFilters {
 		this.name = name;
 	}
 	
-	public Date getCreate_at() {
+	public String getCreate_at() {
 		return create_at;
 	}
-	public void setCreate_at(Date create_at) {
+	public void setCreate_at(String create_at) {
 		this.create_at = create_at;
 	}
 	

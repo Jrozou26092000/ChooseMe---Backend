@@ -4,6 +4,7 @@ package com.chooseme.proyect.controllersImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -37,8 +38,11 @@ public class ProductsControllersImpl implements ProductsController {
 			return productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1);
 		}
 		else if(!(filter.getCreate_at() == null)) {
-			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-			return productService.findByDate(timeStamp, timeStamp);
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			int dias = 30;
+			Date temp = (new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * dias)));
+			System.out.println(new SimpleDateFormat("yyy-MM-dd").format(temp));
+			return productService.findByDate(filter.getCreate_at(),timeStamp);
 		}
 		
 		return null;
