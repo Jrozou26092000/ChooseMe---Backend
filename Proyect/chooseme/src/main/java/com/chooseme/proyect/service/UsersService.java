@@ -20,7 +20,7 @@ public interface UsersService {
 	// Crea un nuevo usuario de tipo usuario
 	//public Users saveUser(Users usersNew);
 	// Actrualiza el usuario existente
-	public Boolean updateUsers(Users userNew, String name) throws ApiUnprocessableEntity;
+	public String updateUsers(Users userNew, String name, String newToken) throws ApiUnprocessableEntity;
 
 	//borra un usuario ingresando su contraseña y su id
 

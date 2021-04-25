@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;	
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.UsersDTO;
@@ -116,7 +117,7 @@ public class UsersServiceImpl implements UsersService {
 	
 	
 	@Override
-	public Boolean updateUsers(Users usersUpdated, String name) throws ApiUnprocessableEntity {
+	public String updateUsers(Users usersUpdated, String name, String newToken) throws ApiUnprocessableEntity {
 
 		Users oldUser = usersRepository.getUserByUsername(name);
 		if(oldUser != null) {
@@ -133,11 +134,11 @@ public class UsersServiceImpl implements UsersService {
 				usersToUpdate.setLastname(usersUpdated.getLastname());
 				if(logginValidator.updateValidator(usersToUpdate)) {				
 					usersRepository.save(usersToUpdate);
-					return true;
+					return newToken;
 				}				
 			}	
 		}
-		return false;
+		return "false";
 	}	
 
 	@Override

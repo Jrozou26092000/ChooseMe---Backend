@@ -164,7 +164,8 @@ public class UserValidatorComponent implements UserValidator {
 		if(newusers.getPassword() == null || newusers.getPassword().isEmpty()) {
 			System.out.println("password necesaria");
 			return false;
-		} 		
+		}
+		
 		
 		if(newusers.getPhone() == null || newusers.getPhone().isEmpty()) {
 			System.out.println("campo numero vacio");
