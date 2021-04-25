@@ -6,7 +6,7 @@ public class ProductsFilters {
 	
 	private Date create_at;
 	private String name;
-	private double stars_punctuation;
+	private double stars_puntuation;
 	private int popularity;
 	private String category;
 	private String nameorcat;
@@ -33,10 +33,10 @@ public class ProductsFilters {
 	}
 	
 	public double getStars_punctuation() {
-		return stars_punctuation;
+		return stars_puntuation;
 	}
-	public void setStars_punctuation(double stars_punctuation) {
-		this.stars_punctuation = stars_punctuation;
+	public void setStars_punctuation(double stars_puntuation) {
+		this.stars_puntuation = stars_puntuation;
 	}
 	
 	public int getPopularity() {

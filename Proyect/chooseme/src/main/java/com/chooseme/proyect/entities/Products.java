@@ -38,10 +38,19 @@ public class Products {
 	private int verified;
 	@Column(name="created_at")
 	private Timestamp created_at;
-	@Transient
+	@Column(name = "description")
+	private String description;
+	@Column(name = "score")
 	private double score;
 	@Transient
 	private String comment;
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescriptiono(String description) {
+		this.description = description;
+	}
 	
 	public double getScore() {
 		return score;

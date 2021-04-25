@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.ProductToFront;
 import com.chooseme.proyect.entities.Products;
+import com.chooseme.proyect.entities.Scores;
 import com.chooseme.proyect.repository.CategoryRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
 import com.chooseme.proyect.service.CategoriesService;
@@ -24,10 +25,11 @@ public class ProductsServiceImpl implements ProductsService {
 	Iterable<Products> nameproductcheck;
 	Iterable<Products> nameprod;
 	CategoriesService categoryService;
+	
 	@Autowired
 	CategoryRepository catRepo;
 	Products product;
-	
+	Scores score;
 	
 	
 	@Override
@@ -36,6 +38,7 @@ public class ProductsServiceImpl implements ProductsService {
 		String name = filter.getName();
 						
 		nameproductcheck =  productRepository.getProductByProductname(name);
+		
 		return nameproductcheck;
 	}
 	/*
@@ -48,15 +51,10 @@ public class ProductsServiceImpl implements ProductsService {
 	public Iterable<Products> findProductByCategory(ProductsFilters filter) {
 		
 
-		if(!(filter.getCategory() == null)) {
-			String nameorcat = filter.getCategory();
-			nameprod = productRepository.getQuery(nameorcat);
-		}
-		else if (!(filter.getName() == null)) {
+		if(!(filter.getName() == null)) {
 			String nameorcat = filter.getName();
 			nameprod = productRepository.getQuery(nameorcat);
 		}
-
 		
 		return nameprod;
 	}
