@@ -61,13 +61,13 @@ public class ProductsControllersImpl implements ProductsController {
 			}
 		} 
 		if(!(filter.getCreate_at() == null)) {
-			String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-			int dias = 30;
-			Date temp = (new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * dias)));
-//			System.out.println(new SimpleDateFormat("yyy-MM-dd").format(temp));
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -(Integer.parseInt(filter.getCreate_at())));
+			String nowStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			String fromStamp = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
 			
 			Set<Products> tempSet = new HashSet<Products>();
-			productService.findByDate(filter.getCreate_at(),timeStamp).forEach((e) -> {
+			productService.findByDate(fromStamp,nowStamp).forEach((e) -> {
 				tempSet.add(e);
 			});
 			if (searchSet.isEmpty()) {
