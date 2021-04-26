@@ -4,8 +4,10 @@ package com.chooseme.proyect.controllersImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,7 @@ import com.chooseme.proyect.controllers.ProductsController;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.service.ProductsService;
+import com.chooseme.proyect.util.ProductSorter;
 
 
 
@@ -47,7 +50,6 @@ public class ProductsControllersImpl implements ProductsController {
 			}
 		} 
 		if(!(filter.getStars_puntuation() == 0)) {
-			System.out.println("???");
 			Set<Products> tempSet = new HashSet<Products>();
 			productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1).forEach((e) -> {
 				tempSet.add(e);
@@ -62,7 +64,7 @@ public class ProductsControllersImpl implements ProductsController {
 			String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 			int dias = 30;
 			Date temp = (new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * dias)));
-			System.out.println(new SimpleDateFormat("yyy-MM-dd").format(temp));
+//			System.out.println(new SimpleDateFormat("yyy-MM-dd").format(temp));
 			
 			Set<Products> tempSet = new HashSet<Products>();
 			productService.findByDate(filter.getCreate_at(),timeStamp).forEach((e) -> {
@@ -79,7 +81,9 @@ public class ProductsControllersImpl implements ProductsController {
 			return null;
 		}
 		
-		return searchSet.stream().collect(Collectors.toList());
+		List<Products> retL = searchSet.stream().collect(Collectors.toList());
+		Collections.sort(retL, new ProductSorter());
+		return retL;
 	}
 	
 
