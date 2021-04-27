@@ -4,7 +4,12 @@ package com.chooseme.proyect.controllersImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +22,7 @@ import com.chooseme.proyect.controllers.ProductsController;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.service.ProductsService;
+import com.chooseme.proyect.util.ProductSorter;
 
 
 
@@ -29,23 +35,60 @@ public class ProductsControllersImpl implements ProductsController {
 	@Override
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
+		
+		Set<Products> searchSet = new HashSet<Products>();
+		
+		boolean firstFilter = true; 
 
 		if(!(filter.getName() == null)) {
-			return productService.findProductByCategory(filter);
-		}
-		else if(!(filter.getStars_puntuation() == 0)) {
+			Set<Products> tempSet = new HashSet<Products>();
+			productService.findProductByCategory(filter).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
+		} 
+		if(!(filter.getStars_puntuation() == 0)) {
+			Set<Products> tempSet = new HashSet<Products>();
+			productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
+		} 
+		if(!(filter.getCreate_at() == null)) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -(Integer.parseInt(filter.getCreate_at())));
+			String nowStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			String fromStamp = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
 			
-			return productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1);
-		}
-		else if(!(filter.getCreate_at() == null)) {
-			String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-			int dias = 30;
-			Date temp = (new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * dias)));
-			System.out.println(new SimpleDateFormat("yyy-MM-dd").format(temp));
-			return productService.findByDate(filter.getCreate_at(),timeStamp);
+			Set<Products> tempSet = new HashSet<Products>();
+			productService.findByDate(fromStamp,nowStamp).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
 		}
 		
-		return null;
+		if (searchSet.isEmpty()) {
+			return null;
+		}
+		
+		List<Products> retL = searchSet.stream().collect(Collectors.toList());
+		Collections.sort(retL, new ProductSorter());
+		return retL;
 	}
 	
 
