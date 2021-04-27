@@ -37,14 +37,17 @@ public class ProductsControllersImpl implements ProductsController {
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
 		
 		Set<Products> searchSet = new HashSet<Products>();
+		
+		boolean firstFilter = true; 
 
 		if(!(filter.getName() == null)) {
 			Set<Products> tempSet = new HashSet<Products>();
 			productService.findProductByCategory(filter).forEach((e) -> {
 				tempSet.add(e);
 			});
-			if (searchSet.isEmpty()) {
+			if (firstFilter) {
 				searchSet.addAll(tempSet);
+				firstFilter = false;
 			} else {
 				searchSet.retainAll(tempSet);
 			}
@@ -54,8 +57,9 @@ public class ProductsControllersImpl implements ProductsController {
 			productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1).forEach((e) -> {
 				tempSet.add(e);
 			});
-			if (searchSet.isEmpty()) {
+			if (firstFilter) {
 				searchSet.addAll(tempSet);
+				firstFilter = false;
 			} else {
 				searchSet.retainAll(tempSet);
 			}
@@ -70,8 +74,9 @@ public class ProductsControllersImpl implements ProductsController {
 			productService.findByDate(fromStamp,nowStamp).forEach((e) -> {
 				tempSet.add(e);
 			});
-			if (searchSet.isEmpty()) {
+			if (firstFilter) {
 				searchSet.addAll(tempSet);
+				firstFilter = false;
 			} else {
 				searchSet.retainAll(tempSet);
 			}
