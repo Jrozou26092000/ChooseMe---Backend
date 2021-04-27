@@ -140,16 +140,19 @@ public class UsersControllerImpl implements UsersController {
 	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		final String newToken = jwtTokenUtil.generateToken(new User(userNew.getUser_name(), userNew.getPassword(), new ArrayList<>()));
-		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
-		tokenRepo.delete(token);
-		Tokens newTokens = new Tokens();
-		newTokens.setToken(newToken);
-		tokenRepo.save(newTokens);
 		if (userNew.getPasstemp().equals(null)) {
 			return ResponseEntity.badRequest().body("La nueva contraseña esta vacia");
 		}
-		return ResponseEntity.ok(userService.updateUsers(userNew, name, newToken));
+		final String newToken = jwtTokenUtil.generateToken(new User(userNew.getUser_name(), userNew.getPassword(), new ArrayList<>()));
+		String response = userService.updateUsers(userNew, name, newToken);
+		if(response != "false") {
+			Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+			tokenRepo.delete(token);
+			Tokens newTokens = new Tokens();
+			newTokens.setToken(newToken);
+			tokenRepo.save(newTokens);
+		}
+		return ResponseEntity.ok(response);
 	}
 	
 	@Override
