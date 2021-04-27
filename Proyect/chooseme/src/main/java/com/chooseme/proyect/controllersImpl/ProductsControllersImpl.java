@@ -52,9 +52,9 @@ public class ProductsControllersImpl implements ProductsController {
 				searchSet.retainAll(tempSet);
 			}
 		} 
-		if(!(filter.getStars_puntuation() == 0)) {
+		if(!(filter.getStars_puntuation() == null)) {
 			Set<Products> tempSet = new HashSet<Products>();
-			productService.findProductByScore(filter.getStars_puntuation(), filter.getStars_puntuation()+1).forEach((e) -> {
+			productService.findProductByScore(Double.parseDouble(filter.getStars_puntuation()), Double.parseDouble(filter.getStars_puntuation())+1).forEach((e) -> {
 				tempSet.add(e);
 			});
 			if (firstFilter) {
