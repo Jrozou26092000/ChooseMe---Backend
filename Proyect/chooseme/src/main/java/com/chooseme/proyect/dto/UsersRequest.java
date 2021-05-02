@@ -1,7 +1,6 @@
 package com.chooseme.proyect.dto;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

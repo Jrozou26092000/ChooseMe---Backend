@@ -2,9 +2,7 @@ package com.chooseme.proyect.dto;
 
 import java.io.Serializable;
 import java.sql.Blob;
-import java.sql.Timestamp;
 
-import javax.persistence.Column;
 
 public class UsersDTO implements Serializable {
 	
