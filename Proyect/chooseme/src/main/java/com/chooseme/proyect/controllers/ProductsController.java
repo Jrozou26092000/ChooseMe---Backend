@@ -28,7 +28,7 @@ public interface ProductsController {
 	public Iterable<Comments> product_view(Products product);
 
 
-	public Optional<Comments> products_id(int id);
+	public Iterable<Comments> products_id(int id);
 
 
 	//public boolean addProducts(Products newproducts);

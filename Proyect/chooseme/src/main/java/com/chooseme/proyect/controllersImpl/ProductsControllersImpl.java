@@ -122,9 +122,13 @@ public class ProductsControllersImpl implements ProductsController {
 	
 	@Override
 	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
-	public Optional<Comments> products_id(@PathVariable("id") int id){
-		System.out.println(id);
-		return commentsRepo.findById(id);
+	public Iterable<Comments> products_id(@PathVariable("id") int id){
+		//System.out.println(id);
+		/*Optional<Comments> opcomments = commentsRepo.findById(id); 
+		System.out.println(opcomments);
+		Comments opcommentsget = opcomments.get();
+		opcommentsget.*/
+		return commentsRepo.findByIdx(id);
 	}
 	
 	

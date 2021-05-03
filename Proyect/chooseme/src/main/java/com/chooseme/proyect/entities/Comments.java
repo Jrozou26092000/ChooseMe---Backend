@@ -26,17 +26,23 @@ public class Comments {
 	
 	@Column(name = "created_at")
 	private Timestamp created_at;
+	
+	
 	@Column(name = "reviewer_id")
 	private int reviewer_id;
 	
 	@Column(name = "product_id")
 	private int product_id;
-	/*@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reviewer_id", nullable = false)
-	private Users user;
+	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id")
-	private Products product;*/
+	@JoinColumn(name = "reviewer_id", insertable = false, updatable = false)
+	Users user;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id", insertable = false, updatable = false)
+	Products product;
 	
 	/*@Transient
 	private UsersDTO userdto;

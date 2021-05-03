@@ -2,6 +2,7 @@ package com.chooseme.proyect.entities;
 
 import java.sql.Blob;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -49,9 +50,10 @@ public class Products {
 	private String description;
 	@Column(name = "score")
 	private double score;
-	/*@OneToMany(mappedBy="product", fetch = FetchType.LAZY)
-	@Column(name = "comment")
-	private Set<Comments> comment;*/
+	
+	
+	@OneToMany(mappedBy="product")
+	private List<Comments> comment = new ArrayList<>();
 	
 	/*@PostPersist
 	public void getPostper() {
