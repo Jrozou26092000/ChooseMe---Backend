@@ -109,6 +109,9 @@ public class UsersServiceImpl implements UsersService {
         }
         catch(NoSuchElementException ne) {
         }
+        catch(NullPointerException np) {
+        	
+        }
 
         return false;
     }
