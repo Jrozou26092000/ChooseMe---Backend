@@ -17,7 +17,12 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
 	
 	@Override
 	public Boolean validatorLoggin(Users user) throws ApiUnprocessableEntity {
-		user_check = usersRepository.getUserByEmail(user.getEmail());
+		try {
+			user_check = usersRepository.getUserByEmail(user.getEmail());
+		}
+		catch (NullPointerException np) {
+			
+		}
         if(user_check == null) {
             return false;
         }
