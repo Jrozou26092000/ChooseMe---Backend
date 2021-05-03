@@ -93,6 +93,9 @@ public class UsersControllerImpl implements UsersController {
 	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean deleteUsers(@RequestBody Users user, @RequestHeader String Authorization) {
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+
+		tokenRepo.delete(token);
         return userService.deleteUsers(user, name);
     }
 
@@ -168,6 +171,8 @@ public class UsersControllerImpl implements UsersController {
 	public Boolean justtest() {
 		return true;
 	}
+	
+	
 
 
 
