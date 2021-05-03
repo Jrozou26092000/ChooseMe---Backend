@@ -19,19 +19,27 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
 	public Boolean validatorLoggin(Users user) throws ApiUnprocessableEntity {
 		try {
 			user_check = usersRepository.getUserByEmail(user.getEmail());
+	
+			if(user_check == null) {
+				
+	            return false;
+	        }
+			
+			  else if(user.getEmail() == null || user.getEmail().isEmpty()) {
+
+		            return false;
+		        }
+			  else {
+
+		            return true;
+		        }
 		}
 		catch (NullPointerException np) {
 			
 		}
-        if(user_check == null) {
-            return false;
-        }
-        else if(user.getEmail() == null || user.getEmail().isEmpty()) {
-            return false;
-        }
-        else {
-            return true;
-        }
+		return false;
+	
+       
 	}
 
 	private void message(String message) throws ApiUnprocessableEntity {

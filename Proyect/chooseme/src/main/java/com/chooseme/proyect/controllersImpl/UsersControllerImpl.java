@@ -112,7 +112,9 @@ public class UsersControllerImpl implements UsersController {
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
 		userNew.setActive(1);
-		this.logginValidator.validatorLoggin(userNew);
+		if(!this.logginValidator.validatorLoggin(userNew)){
+			return null;
+		}
 		if (!userService.logginUser(userNew)) {
 			return null;
 		}
