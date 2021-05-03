@@ -88,10 +88,12 @@ public class UsersControllerImpl implements UsersController {
     }
 	
 
+
 	@Override
 	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean deleteUsers(@RequestBody Users user) {
-        return userService.deleteUsers(user);
+    public Boolean deleteUsers(@RequestBody Users user, @RequestHeader String Authorization) {
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+        return userService.deleteUsers(user, name);
     }
 
 	// http://localhost:8080/test (GET)
