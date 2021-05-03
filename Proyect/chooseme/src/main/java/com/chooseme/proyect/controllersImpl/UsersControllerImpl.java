@@ -88,10 +88,15 @@ public class UsersControllerImpl implements UsersController {
     }
 	
 
+
 	@Override
 	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean deleteUsers(@RequestBody Users user) {
-        return userService.deleteUsers(user);
+    public Boolean deleteUsers(@RequestBody Users user, @RequestHeader String Authorization) {
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+
+		tokenRepo.delete(token);
+        return userService.deleteUsers(user, name);
     }
 
 	// http://localhost:8080/test (GET)
@@ -107,7 +112,9 @@ public class UsersControllerImpl implements UsersController {
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
 		
 		userNew.setActive(1);
-		this.logginValidator.validatorLoggin(userNew);
+		if(!this.logginValidator.validatorLoggin(userNew)){
+			return null;
+		}
 		if (!userService.logginUser(userNew)) {
 			return null;
 		}
@@ -166,6 +173,8 @@ public class UsersControllerImpl implements UsersController {
 	public Boolean justtest() {
 		return true;
 	}
+	
+	
 
 
 

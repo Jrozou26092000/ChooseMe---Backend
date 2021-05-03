@@ -91,10 +91,10 @@ public class UsersServiceImpl implements UsersService {
 	
 
 	@Override
-    public Boolean deleteUsers(Users userDelete) {
+    public Boolean deleteUsers(Users userDelete, String name) {
         user = null;
         try {
-            user = usersRepository.getUserByUsername(userDelete.getUser_name());
+            user = usersRepository.getUserByUsername(name);
             if(BCrypt.checkpw(userDelete.getPassword(), user.getPassword()))            {
             	
             	user.setName(null);
@@ -108,6 +108,9 @@ public class UsersServiceImpl implements UsersService {
             }
         }
         catch(NoSuchElementException ne) {
+        }
+        catch(NullPointerException np) {
+        	
         }
 
         return false;

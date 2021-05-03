@@ -27,7 +27,7 @@ public interface UsersController {
 	public Boolean test();
 
 	//borra un usuario, para realizar la operacion se requiere la contraseña del usuario
-	public Boolean deleteUsers(Users user);
+	public Boolean deleteUsers(Users user, String Authorization);
 	
 	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;
 	public Boolean addUsers(Users newusers) throws ApiUnprocessableEntity;
@@ -35,6 +35,8 @@ public interface UsersController {
 	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
 	public Boolean out(String Authorization);
+
+	
 	
 	
 	
