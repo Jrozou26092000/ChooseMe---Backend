@@ -22,6 +22,7 @@ import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
+import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.TokensRepository;
 import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.UsersService;
@@ -43,6 +44,8 @@ public class UsersControllerImpl implements UsersController {
 	JwtUtil jwtTokenUtil;
 	@Autowired
 	UsersRepository userRepo;
+	@Autowired
+	CommentsRepository commentsRepo;
 
 
 	@Autowired
@@ -185,6 +188,8 @@ public class UsersControllerImpl implements UsersController {
 		tokenRepo.delete(token);
 		return true;
 	}
+	
+
 	
 	
 	@Override
