@@ -3,15 +3,22 @@ package com.chooseme.proyect.entities;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.chooseme.proyect.dto.UsersDTO;
 
 @Entity(name = "Products")
 @Table(name = "Products")
@@ -42,8 +49,14 @@ public class Products {
 	private String description;
 	@Column(name = "score")
 	private double score;
-	@Transient
-	private String comment;
+	/*@OneToMany(mappedBy="product", fetch = FetchType.LAZY)
+	@Column(name = "comment")
+	private Set<Comments> comment;*/
+	
+	/*@PostPersist
+	public void getPostper() {
+		System.out.print(comment);
+	}*/
 	
 	public String getDescription() {
 		return description;
@@ -58,12 +71,7 @@ public class Products {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+
 	
 	
 	@PrePersist

@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.sql.Blob;
 
 
+
 public class UsersDTO implements Serializable {
 	
 	private int user_id;
 	
 	private Blob user_photo;
 	private String photo_url;
+	
 	private String user_name;
 	private int active;
 	private int points;
