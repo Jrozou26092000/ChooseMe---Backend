@@ -26,7 +26,8 @@ public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 			+ "ON c.reviewer_id = u.user_id "
 			+ "JOIN products as p "
 			+ "ON p.product_id = c.product_id "
-			+ "WHERE c.product_id = :id", nativeQuery  = true)
-	public Iterable<Comments> findByIdx(int id);
+			+ "WHERE c.product_id = :id "
+			+ "LIMIT :page, 10", nativeQuery  = true)
+	public Iterable<Comments> findByIdx(int id, int page);
 
 }

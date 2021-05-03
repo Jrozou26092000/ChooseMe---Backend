@@ -30,9 +30,7 @@ public class Comments {
 	
 	@Column(name = "reviewer_id")
 	private int reviewer_id;
-	
-	@Column(name = "product_id")
-	private int product_id;
+
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -68,12 +66,7 @@ public class Comments {
 		this.created_at = created_at;
 	}
 	
-	public int getProduct_id() {
-		return product_id;
-	}
-	public void setProduct_id(int id) {
-		this.product_id = id;
-	}
+
 	
 	public String getComment() {
 		return comment;

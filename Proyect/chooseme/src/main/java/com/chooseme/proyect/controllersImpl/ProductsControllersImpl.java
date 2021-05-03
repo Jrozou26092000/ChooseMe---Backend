@@ -119,16 +119,12 @@ public class ProductsControllersImpl implements ProductsController {
 		return p;
 		
 	}
-	
+
 	@Override
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
-	public Iterable<Comments> products_id(@PathVariable("id") int id){
-		//System.out.println(id);
-		/*Optional<Comments> opcomments = commentsRepo.findById(id); 
-		System.out.println(opcomments);
-		Comments opcommentsget = opcomments.get();
-		opcommentsget.*/
-		return commentsRepo.findByIdx(id);
+	@RequestMapping(value = "/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
+	public Iterable<Comments> products_id(@PathVariable("id") int id, @PathVariable("page") int page){
+
+		return commentsRepo.findByIdx(id, page);
 	}
 	
 	
