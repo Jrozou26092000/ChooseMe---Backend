@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.dto.UsersDTO;
+import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
 import com.chooseme.proyect.repository.TokensRepository;
+import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
@@ -38,6 +41,8 @@ public class UsersControllerImpl implements UsersController {
 	UserLogginValidator logginValidator;
 	@Autowired
 	JwtUtil jwtTokenUtil;
+	@Autowired
+	UsersRepository userRepo;
 
 
 	@Autowired
@@ -106,7 +111,22 @@ public class UsersControllerImpl implements UsersController {
 		return true;
 	}
 	
+
+	@Override
+	@RequestMapping(value =  "/users/top5", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Users> top5(){
+		return userRepo.gettop5();
+	}
 	
+
+	@Override
+	@RequestMapping(value =  "/users/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Users> searchByName(@RequestBody Users user){
+		System.out.println(user.getUser_name());
+		return userService.sortByName(user);
+	}
+	
+
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
@@ -126,7 +146,7 @@ public class UsersControllerImpl implements UsersController {
 		Tokens token = new Tokens();
 		token.setToken(jwt);
 		tokenRepo.save(token);
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 		
 	}
 	

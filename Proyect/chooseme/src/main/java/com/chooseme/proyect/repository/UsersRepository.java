@@ -16,7 +16,16 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 	@Query("SELECT u FROM Users u WHERE u.email = :email")
     public Users getUserByEmail(@Param("email") String username);
 
-
+	@Query(value = "Select * from users "
+			+ "Order by points DESC "
+			+ "limit 5 ", nativeQuery = true)
+	public Iterable<Users>gettop5();
+	
+	
+	@Query(value = "Select * from users "
+			+ "Where user_name LIKE %:name% "
+			+ "Order by points DESC ", nativeQuery = true)
+	public Iterable<Users> sortByName(@Param("name") String name);
 	
 
 	

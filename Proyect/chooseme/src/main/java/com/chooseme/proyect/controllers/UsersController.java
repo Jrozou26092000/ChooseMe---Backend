@@ -35,6 +35,8 @@ public interface UsersController {
 	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
 	public Boolean out(String Authorization);
+	public Iterable<Users> top5();
+	public Iterable<Users> searchByName(Users user);
 
 	
 	

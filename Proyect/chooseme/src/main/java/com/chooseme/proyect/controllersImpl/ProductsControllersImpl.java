@@ -105,9 +105,10 @@ public class ProductsControllersImpl implements ProductsController {
 	@RequestMapping(value = "/products/test", method = RequestMethod.GET, produces = "application/json")
 	public Boolean producttest() {
 		
-		
 		return true;
 	}
+	
+	
 	
 
 	@Override
