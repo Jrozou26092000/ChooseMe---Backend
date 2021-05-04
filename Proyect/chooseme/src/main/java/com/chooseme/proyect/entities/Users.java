@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;	
 import javax.persistence.Entity;	
 import javax.persistence.GeneratedValue;	
@@ -61,8 +62,8 @@ public class Users {
 	@Transient
 	private String passtemp;
 	
-	@OneToMany(mappedBy="user")
-	private List<Comments> comment = new ArrayList<>();
+	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
+	private List<Comments> comment = new ArrayList<Comments>();
 	
 	
 	public String getPasstemp() {

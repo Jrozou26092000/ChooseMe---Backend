@@ -44,25 +44,26 @@ public class Comments {
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reviewer_id", insertable = false, updatable = false)
 	Users user;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	Products product;
-	
-	@Transient
-	private String user_name;
+
 	
 	
 	
 	
-	public String getUser_name() {
-		return user_name;
+
+	public Users getUser() {
+		return user;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setUser(Users user) {
+		this.user = user;
 	}
+	
 	public int getProduct_id() {
 		return product_id;
 	}

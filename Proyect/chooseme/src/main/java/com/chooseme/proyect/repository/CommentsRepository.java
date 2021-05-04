@@ -5,9 +5,11 @@ package com.chooseme.proyect.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.chooseme.proyect.entities.Comments;
 
+@Repository
 public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 	
 	@Query(value = "SELECT c.* FROM comments as c "
@@ -39,7 +41,7 @@ public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 
 	
 	@Query("SELECT c FROM Comments  c "
-			+ "JOIN c.users u "
+			+ "JOIN c.user u "
 			+ "ON c.reviewer_id = u.user_id "
 			+ "WHERE c.product_id = :product_id "
 			+ "AND c.reviewer_id = :reviewer_id")
