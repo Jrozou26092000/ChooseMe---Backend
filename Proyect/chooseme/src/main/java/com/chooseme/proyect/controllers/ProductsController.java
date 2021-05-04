@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
@@ -32,6 +33,10 @@ public interface ProductsController {
 
 
 	public Iterable<Comments> products_id(int id, int page);
+
+
+
+	public void product_newreview(Comments comment, String Authorization);
 
 
 	//public boolean addProducts(Products newproducts);

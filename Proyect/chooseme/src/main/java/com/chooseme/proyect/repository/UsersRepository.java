@@ -27,6 +27,7 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 			+ "Order by points DESC ", nativeQuery = true)
 	public Iterable<Users> sortByName(@Param("name") String name);
 	
+	
 
 	
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,9 @@ import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
+import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.service.ProductsService;
+import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.util.ProductSorter;
 
 
@@ -40,7 +43,13 @@ public class ProductsControllersImpl implements ProductsController {
 	ProductsService productService;
 	@Autowired
 	CommentsRepository commentsRepo;
+	@Autowired
+	CommentsService commentsService;
+	
 	Products product;
+	@Autowired
+	JwtUtil jwtTokenUtil;
+	
 	@Override
 	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
@@ -114,9 +123,9 @@ public class ProductsControllersImpl implements ProductsController {
 	@Override
 	@RequestMapping(value = "/product_view", produces = "application/json")
 	public Iterable<Comments> product_view(@RequestBody Products product) {
-		System.out.println();
+
 		Iterable<Comments> p = productService.ProductView(product);
-		System.out.println(p);
+	
 		return p;
 		
 	}
@@ -127,6 +136,19 @@ public class ProductsControllersImpl implements ProductsController {
 
 		return commentsRepo.findByIdx(id, page);
 	}
+
+	@Override
+	@RequestMapping(value = "/product/newreview")
+	public void product_newreview(@RequestBody Comments comment, @RequestHeader String Authorization) {
+		
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		
+		commentsService.newComment(comment, name);
+	}
+	
+	/*@Override
+	@RequestMapping(value = "/comments/up_down")*/
+	
 	
 	
 

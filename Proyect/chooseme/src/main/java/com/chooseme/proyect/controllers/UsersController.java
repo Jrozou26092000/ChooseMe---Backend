@@ -38,6 +38,7 @@ public interface UsersController {
 	public Boolean out(String Authorization);
 	public Iterable<Users> top5();
 	public Iterable<Users> searchByName(Users user);
+	public Iterable<Comments> reviewers_id(int id, int page);
 
 	
 	

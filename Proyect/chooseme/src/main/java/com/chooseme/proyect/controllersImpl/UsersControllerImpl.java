@@ -87,6 +87,8 @@ public class UsersControllerImpl implements UsersController {
 		
 	}
 	
+	
+	
 	@Override
 	@PostMapping(value = "/users/desactivate", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean desactivateUsers(@RequestBody Users user, @RequestHeader String Authorization) {
@@ -188,8 +190,13 @@ public class UsersControllerImpl implements UsersController {
 		tokenRepo.delete(token);
 		return true;
 	}
-	
 
+	@Override
+	@RequestMapping(value = "/user/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
+	public Iterable<Comments> reviewers_id(@PathVariable("id") int id, @PathVariable("page") int page){
+
+		return commentsRepo.findByIdy(id, page);
+	}
 	
 	
 	@Override
@@ -197,6 +204,7 @@ public class UsersControllerImpl implements UsersController {
 	public Boolean justtest() {
 		return true;
 	}
+	
 	
 	
 

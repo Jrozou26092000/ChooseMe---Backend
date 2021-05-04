@@ -1,6 +1,7 @@
 package com.chooseme.proyect.entities;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,11 +32,18 @@ public class Comments {
 	
 	@Column(name = "reviewer_id")
 	private int reviewer_id;
-
+	
+	@Column(name = "score")
+	private int score;
+	
+	@Column(name = "up_down")
+	private int up_down;
+	
+	@Column(name = "product_id")
+	private int product_id;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reviewer_id", insertable = false, updatable = false)
 	Users user;
 	
 	
@@ -42,16 +51,24 @@ public class Comments {
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	Products product;
 	
-	/*@Transient
-	private UsersDTO userdto;
+	@Transient
+	private String user_name;
 	
 	
-	@PostPersist
-	public void newUsersDTO() {
-		this.userdto = new UsersDTO(user.getUser_id(),user.getUser_photo(), user.getUser_photo_url(),user.getUser_name(),
-				user.getActive(),user.getPoints(), user.getGoogle_account(), user.getName(), user.getLastname(), null);
-	}*/
 	
+	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public int getProduct_id() {
+		return product_id;
+	}
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
 	public int getCommentId() {
 		return comment_id;
 	}
@@ -66,7 +83,7 @@ public class Comments {
 		this.created_at = created_at;
 	}
 	
-
+	
 	
 	public String getComment() {
 		return comment;
@@ -82,4 +99,24 @@ public class Comments {
 		this.reviewer_id = id;
 	}
 	
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public int getUp_down() {
+		return up_down;
+	}
+	public void setUp_down(int up_down) {
+		this.up_down = up_down;
+	}
+	
+	@PrePersist
+    public void prePersist() {
+        Date date = new Date();
+        long time = date.getTime();
+        this.created_at = new Timestamp(time);
+	}
 }

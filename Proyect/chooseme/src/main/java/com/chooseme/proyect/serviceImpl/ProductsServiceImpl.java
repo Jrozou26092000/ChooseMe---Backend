@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Products;
-import com.chooseme.proyect.entities.Scores;
 import com.chooseme.proyect.repository.CategoryRepository;
 import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
@@ -30,7 +29,6 @@ public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	CategoryRepository catRepo;
 	Products product;
-	Scores score;
 	
 	
 	@Override
