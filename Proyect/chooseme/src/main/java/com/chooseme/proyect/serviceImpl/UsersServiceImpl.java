@@ -217,9 +217,11 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 
+
 	@Override
-	public Iterable<Users> sortByName(Users user){
-		return usersRepository.sortByName(user.getUser_name());
+	public Iterable<Users> sortByName(Users user, int page) {
+
+		return usersRepository.sortByName(user.getUser_name(), page);
 	}
 	
 }

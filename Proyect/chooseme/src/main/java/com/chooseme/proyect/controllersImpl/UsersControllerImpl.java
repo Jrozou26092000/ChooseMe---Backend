@@ -125,9 +125,9 @@ public class UsersControllerImpl implements UsersController {
 	
 
 	@Override
-	@RequestMapping(value =  "/users/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Users> searchByName(@RequestBody Users user){
-		return userService.sortByName(user);
+	@RequestMapping(value =  "/users/search/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Users> searchByName(@RequestBody Users user, @PathVariable("page") int page){
+		return userService.sortByName(user, page);
 	}
 	
 

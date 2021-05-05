@@ -24,8 +24,11 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 	
 	@Query(value = "Select * from users "
 			+ "Where user_name LIKE %:name% "
-			+ "Order by points DESC ", nativeQuery = true)
-	public Iterable<Users> sortByName(@Param("name") String name);
+			+ "Order by points DESC "
+			+ "LIMIT :page, 10 ", nativeQuery = true)
+	public Iterable<Users> sortByName(String name, int page);
+
+
 	
 	
 

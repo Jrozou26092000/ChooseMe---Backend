@@ -42,7 +42,7 @@ public class Comments {
 	@Column(name = "product_id")
 	private int product_id;
 	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reviewer_id", insertable = false, updatable = false)
 	Users user;
