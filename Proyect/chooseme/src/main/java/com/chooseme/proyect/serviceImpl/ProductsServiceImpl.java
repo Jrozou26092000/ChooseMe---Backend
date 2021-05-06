@@ -1,15 +1,17 @@
 package com.chooseme.proyect.serviceImpl;
 
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Products;
-import com.chooseme.proyect.entities.Scores;
 import com.chooseme.proyect.repository.CategoryRepository;
 import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
@@ -30,7 +32,6 @@ public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	CategoryRepository catRepo;
 	Products product;
-	Scores score;
 	
 	
 	@Override
@@ -67,9 +68,14 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 
 	@Override
-	public Iterable<Comments> ProductView(Products product) {
+	public Iterable<CommentsDTO> ProductView(Products product) {
 		int id = product.getProduct_id();
-		return commentRepo.getById(id);
+		Iterable<Comments> comm = commentRepo.getById(id);
+		Collection<CommentsDTO> commDTO = new HashSet<CommentsDTO>();
+		comm.forEach((c) -> {
+			commDTO.add(new CommentsDTO(c));
+		});
+		return commDTO;
 	}
 	
 	

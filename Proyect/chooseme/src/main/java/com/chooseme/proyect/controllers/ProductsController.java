@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Products;
@@ -25,13 +27,17 @@ public interface ProductsController {
 	//public Iterable<Products> product_view(int id);
 
 
-	public Iterable<Comments> product_view(Products product);
+	public Iterable<CommentsDTO> product_view(Products product);
 
 
 
 
 
-	public Iterable<Comments> products_id(int id, int page);
+	public Iterable<CommentsDTO> products_id(int id, int page);
+
+
+
+	public void product_newreview(Comments comment, String Authorization);
 
 
 	//public boolean addProducts(Products newproducts);

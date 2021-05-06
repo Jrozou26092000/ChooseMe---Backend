@@ -216,6 +216,12 @@ public class UsersServiceImpl implements UsersService {
 	   return Optional.ofNullable(userDTO);
 	}
 	
-	
+
+
+	@Override
+	public Iterable<Users> sortByName(Users user, int page) {
+
+		return usersRepository.sortByName(user.getUser_name(), page);
+	}
 	
 }

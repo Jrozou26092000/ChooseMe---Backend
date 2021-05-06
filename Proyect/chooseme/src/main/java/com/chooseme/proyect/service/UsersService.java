@@ -32,6 +32,7 @@ public interface UsersService {
 	public Optional<Users> findUserByName(String name);
 	public Boolean ifFindUserById(int id);
 	public Optional<UsersDTO> getPerfil(String token);
+	public Iterable<Users> sortByName(Users user, int page);
 
 
 

@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
+import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;
 
 import utils.Exceptions.ApiUnprocessableEntity;
@@ -35,6 +37,9 @@ public interface UsersController {
 	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
 	public Boolean out(String Authorization);
+	public Iterable<Users> top5();
+	public Iterable<CommentsDTO> reviewers_id(int id, int page);
+	public Iterable<Users> searchByName(Users user, int page);
 
 	
 	

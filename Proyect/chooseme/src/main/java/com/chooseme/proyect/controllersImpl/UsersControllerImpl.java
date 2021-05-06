@@ -1,14 +1,19 @@
 package com.chooseme.proyect.controllersImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,11 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
+import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
+import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.TokensRepository;
+import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
@@ -38,6 +47,10 @@ public class UsersControllerImpl implements UsersController {
 	UserLogginValidator logginValidator;
 	@Autowired
 	JwtUtil jwtTokenUtil;
+	@Autowired
+	UsersRepository userRepo;
+	@Autowired
+	CommentsRepository commentsRepo;
 
 
 	@Autowired
@@ -79,6 +92,8 @@ public class UsersControllerImpl implements UsersController {
 		
 	}
 	
+	
+	
 	@Override
 	@PostMapping(value = "/users/desactivate", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean desactivateUsers(@RequestBody Users user, @RequestHeader String Authorization) {
@@ -106,7 +121,21 @@ public class UsersControllerImpl implements UsersController {
 		return true;
 	}
 	
+
+	@Override
+	@RequestMapping(value =  "/users/top5", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Users> top5(){
+		return userRepo.gettop5();
+	}
 	
+
+	@Override
+	@RequestMapping(value =  "/users/search/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Users> searchByName(@RequestBody Users user, @PathVariable("page") int page){
+		return userService.sortByName(user, page);
+	}
+	
+
 	@Override
 	@RequestMapping(value = "/users/loggin",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> loggin(@RequestBody Users userNew) throws ApiUnprocessableEntity {
@@ -126,7 +155,7 @@ public class UsersControllerImpl implements UsersController {
 		Tokens token = new Tokens();
 		token.setToken(jwt);
 		tokenRepo.save(token);
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));		
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 		
 	}
 	
@@ -166,6 +195,17 @@ public class UsersControllerImpl implements UsersController {
 		tokenRepo.delete(token);
 		return true;
 	}
+
+	@Override
+	@RequestMapping(value = "/user/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
+	public Iterable<CommentsDTO> reviewers_id(@PathVariable("id") int id, @PathVariable("page") int page){
+		Iterable<Comments> comm = commentsRepo.findByIdy(id, PageRequest.of(page, 10));
+		Collection<CommentsDTO> commDTO = new HashSet<CommentsDTO>();
+		comm.forEach((c) -> {
+			commDTO.add(new CommentsDTO(c));
+		});
+		return commDTO;
+	}
 	
 	
 	@Override
@@ -173,6 +213,7 @@ public class UsersControllerImpl implements UsersController {
 	public Boolean justtest() {
 		return true;
 	}
+	
 	
 	
 
