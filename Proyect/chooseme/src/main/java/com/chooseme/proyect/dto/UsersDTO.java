@@ -2,6 +2,9 @@ package com.chooseme.proyect.dto;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Iterator;
+
+import com.chooseme.proyect.entities.Users;
 
 
 
@@ -35,6 +38,18 @@ public class UsersDTO implements Serializable {
 		this.lastname = lastname;
 		this.token = token;
 
+	}
+	public UsersDTO(Users c) {
+		super();
+		this.user_id = c.getUser_id();
+		this.user_photo = c.getUser_photo();
+		this.photo_url = c.getUser_photo_url();
+		this.user_name = c.getUser_name();
+		this.active = c.getActive();
+		this.points = c.getPoints();
+		this.google_account = c.getGoogle_account();
+		this.name = c.getName();
+		this.lastname = c.getLastname();
 	}
 	public int getUser_id() {
 		return user_id;
@@ -96,6 +111,7 @@ public class UsersDTO implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
 
 	
 	

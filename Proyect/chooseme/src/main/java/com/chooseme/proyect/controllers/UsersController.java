@@ -37,9 +37,9 @@ public interface UsersController {
 	public Optional<UsersDTO> perfil(String Authorization);
 	Boolean justtest();
 	public Boolean out(String Authorization);
-	public Iterable<Users> top5();
+	public Iterable<UsersDTO> top5();
 	public Iterable<CommentsDTO> reviewers_id(int id, int page);
-	public Iterable<Users> searchByName(Users user, int page);
+	public Iterable<UsersDTO> searchByName(Users user, int page);
 
 	
 	

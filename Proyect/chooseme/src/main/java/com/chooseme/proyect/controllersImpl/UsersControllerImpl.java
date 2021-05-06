@@ -124,14 +124,14 @@ public class UsersControllerImpl implements UsersController {
 
 	@Override
 	@RequestMapping(value =  "/users/top5", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Users> top5(){
-		return userRepo.gettop5();
+	public Iterable<UsersDTO> top5(){
+		return userService.getTop5();
 	}
 	
 
 	@Override
 	@RequestMapping(value =  "/users/search/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Iterable<Users> searchByName(@RequestBody Users user, @PathVariable("page") int page){
+	public Iterable<UsersDTO> searchByName(@RequestBody Users user, @PathVariable("page") int page){
 		return userService.sortByName(user, page);
 	}
 	
