@@ -1,11 +1,15 @@
 package com.chooseme.proyect.controllersImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.chooseme.proyect.controllers.UsersController;
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Tokens;
@@ -193,9 +198,13 @@ public class UsersControllerImpl implements UsersController {
 
 	@Override
 	@RequestMapping(value = "/user/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
-	public Iterable<Comments> reviewers_id(@PathVariable("id") int id, @PathVariable("page") int page){
-
-		return commentsRepo.findByIdy(id, page);
+	public Iterable<CommentsDTO> reviewers_id(@PathVariable("id") int id, @PathVariable("page") int page){
+		Iterable<Comments> comm = commentsRepo.findByIdy(id, PageRequest.of(page, 10));
+		Collection<CommentsDTO> commDTO = new HashSet<CommentsDTO>();
+		comm.forEach((c) -> {
+			commDTO.add(new CommentsDTO(c));
+		});
+		return commDTO;
 	}
 	
 	

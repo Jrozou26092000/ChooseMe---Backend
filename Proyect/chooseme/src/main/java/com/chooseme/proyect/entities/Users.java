@@ -62,7 +62,7 @@ public class Users {
 	@Transient
 	private String passtemp;
 	
-	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<Comments> comment = new ArrayList<Comments>();
 	
 	

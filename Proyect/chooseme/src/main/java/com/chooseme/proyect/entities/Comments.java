@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.chooseme.proyect.dto.UsersDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "comments")
@@ -42,14 +43,14 @@ public class Comments {
 	@Column(name = "product_id")
 	private int product_id;
 	
-
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reviewer_id", insertable = false, updatable = false)
+	@JoinColumn(name = "reviewer_id", referencedColumnName = "user_id", insertable = false, updatable = false)
 	Users user;
 	
-	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id", insertable = false, updatable = false)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
 	Products product;
 
 	
