@@ -50,7 +50,7 @@ public class Products {
 	@Column(name = "description")
 	private String description;
 	@Column(name = "score")
-	private double score;
+	private Double score;
 	
 	
 	@OneToMany(mappedBy="product", cascade = CascadeType.ALL)

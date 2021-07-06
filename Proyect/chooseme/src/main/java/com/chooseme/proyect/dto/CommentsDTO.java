@@ -27,10 +27,11 @@ public class CommentsDTO implements Serializable {
 	private int up_down;
 	private int product_id;
 	private String user_name;
+	private String product_name;
 	private int user_id;
 	
 	public CommentsDTO(int comment_id, String comment, Timestamp created_at, int reviewer_id, int score, int up_down,
-			int product_id, String user_name, int user_id) {
+			int product_id, String user_name, String product_name, int user_id) {
 		super();
 		this.comment_id = comment_id;
 		this.comment = comment;
@@ -39,6 +40,7 @@ public class CommentsDTO implements Serializable {
 		this.score = score;
 		this.up_down = up_down;
 		this.product_id = product_id;
+		this.product_name = product_name;
 		this.user_name = user_name;
 		this.user_id = user_id;
 	}
@@ -54,6 +56,7 @@ public class CommentsDTO implements Serializable {
 		this.product_id = comm.getProduct_id();
 		this.user_name = comm.getUser().getUser_name();
 		this.user_id = comm.getUser().getUser_id();
+		this.product_name = comm.getProduct().getName();
 	}
 	
 	public int getComment_id() {
@@ -109,6 +112,14 @@ public class CommentsDTO implements Serializable {
 	}
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 	
 	

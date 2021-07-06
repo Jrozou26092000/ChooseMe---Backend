@@ -56,7 +56,9 @@ public class Comments {
 	
 	
 	
-	
+	public Products getProduct() {
+		return product;
+	}
 
 	public Users getUser() {
 		return user;
