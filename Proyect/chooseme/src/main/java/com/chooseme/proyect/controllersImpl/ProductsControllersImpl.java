@@ -31,10 +31,12 @@ import com.chooseme.proyect.controllers.ProductsController;
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Products;
 import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
 import com.chooseme.proyect.service.CommentsService;
+import com.chooseme.proyect.service.ImpressionsService;
 import com.chooseme.proyect.service.ProductsService;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.util.ProductSorter;
@@ -50,6 +52,8 @@ public class ProductsControllersImpl implements ProductsController {
 	CommentsRepository commentsRepo;
 	@Autowired
 	CommentsService commentsService;
+	@Autowired
+	ImpressionsService impressionsService;
 	
 	Products product;
 	@Autowired
@@ -151,7 +155,6 @@ public class ProductsControllersImpl implements ProductsController {
 	public void product_newreview(@RequestBody Comments comment, @RequestHeader String Authorization) {
 		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		
 		commentsService.newComment(comment, name);
 	}
 	
@@ -159,6 +162,13 @@ public class ProductsControllersImpl implements ProductsController {
 	@RequestMapping(value = "/comments/up_down")*/
 	
 	
+	@Override
+	@RequestMapping(value = "/product/newimpression")
+	public void productNewImpression (@RequestBody Impressions impression, @RequestHeader String Authorization) {
+		
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		impressionsService.newImpression(impression, name);
+	}
 	
 
 

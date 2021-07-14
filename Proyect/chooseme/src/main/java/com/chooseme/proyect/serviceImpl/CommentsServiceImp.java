@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.CommentsRepository;
+import com.chooseme.proyect.repository.ProductsRepository;
 import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.CommentsService;
 
@@ -26,7 +27,6 @@ public class CommentsServiceImp implements CommentsService{
 		
 		int id;
 		user = userRepo.getUserByUsername(name);
-		
 		
 		try  {
 			 id = user.getUser_id();

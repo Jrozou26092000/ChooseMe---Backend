@@ -6,15 +6,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.chooseme.proyect.dto.UsersDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Comments {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comment_id")
 	private int comment_id;
 	@Column(name = "comment")
@@ -30,6 +30,8 @@ public class Comments {
 	@Column(name = "created_at")
 	private Timestamp created_at;
 	
+	@Column(name = "modified_at")
+	private Timestamp modified_at;
 	
 	@Column(name = "reviewer_id")
 	private int reviewer_id;
@@ -88,7 +90,34 @@ public class Comments {
 	}
 	
 	
-	
+	public int getComment_id() {
+		return comment_id;
+	}
+
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+
+	public Timestamp getModified_at() {
+		return modified_at;
+	}
+
+	public void setModified_at(Timestamp modified_at) {
+		this.modified_at = modified_at;
+	}
+
+	public int getReviewer_id() {
+		return reviewer_id;
+	}
+
+	public void setReviewer_id(int reviewer_id) {
+		this.reviewer_id = reviewer_id;
+	}
+
+	public void setProduct(Products product) {
+		this.product = product;
+	}
+
 	public String getComment() {
 		return comment;
 	}
@@ -122,5 +151,12 @@ public class Comments {
         Date date = new Date();
         long time = date.getTime();
         this.created_at = new Timestamp(time);
+        this.modified_at = new Timestamp(time);
 	}
+	@PreUpdate
+    public void preUpdate() {
+    	 Date date = new Date();
+         long time = date.getTime();
+         this.modified_at = new Timestamp(time);
+    }
 }

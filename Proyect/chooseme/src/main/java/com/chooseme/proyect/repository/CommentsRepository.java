@@ -60,9 +60,7 @@ public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 	public Page<Comments> findByIdy(@Param("id") int id, Pageable page);
 
 	
-	@Query(value = "SELECT c FROM comments as c "
-			+ "JOIN c.user u "
-			+ "ON c.reviewer_id = u.user_id "
+	@Query(value = "SELECT * FROM comments as c "
 			+ "WHERE c.product_id = :product_id "
 			+ "AND c.reviewer_id = :reviewer_id", nativeQuery = true)
 	public Comments newReview(int product_id, int reviewer_id);
