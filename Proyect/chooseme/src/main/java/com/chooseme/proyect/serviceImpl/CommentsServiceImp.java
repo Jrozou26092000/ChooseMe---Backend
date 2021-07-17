@@ -23,7 +23,7 @@ public class CommentsServiceImp implements CommentsService{
 	Comments comm;
 	Users user;
 	@Override
-	public void newComment(Comments comment, String name) {
+	public boolean newComment(Comments comment, String name) {
 		
 		int id;
 		user = userRepo.getUserByUsername(name);
@@ -33,14 +33,17 @@ public class CommentsServiceImp implements CommentsService{
 			 comment.setReviewerid(id);
 			 comm = commentRepo.newReview(comment.getProduct_id(), comment.getReviewerid());
 			 System.out.println(comm);
-			 if(comm == null) {
-				commentRepo.save(comment); 
-			 }
+			 
 		}
-		catch (NullPointerException ne) {
-			
+		catch (NullPointerException ne) {	
 		}
 		
+		if(comm == null) {
+			commentRepo.save(comment); 
+			return true;
+		 }else {
+			 return false;
+		 }
 		
 		
 		

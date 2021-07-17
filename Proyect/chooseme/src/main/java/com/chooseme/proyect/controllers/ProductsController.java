@@ -20,7 +20,7 @@ public interface ProductsController {
 
 	public Iterable<CommentsDTO> products_id(int id, int page);
 
-	public void product_newreview(Comments comment, String Authorization);
+	public boolean product_newreview(Comments comment, String Authorization);
 	
 	public void productNewImpression (Impressions impression, String Authorization);
 	

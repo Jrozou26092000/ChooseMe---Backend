@@ -152,10 +152,10 @@ public class ProductsControllersImpl implements ProductsController {
 
 	@Override
 	@RequestMapping(value = "/product/newreview")
-	public void product_newreview(@RequestBody Comments comment, @RequestHeader String Authorization) {
+	public boolean product_newreview(@RequestBody Comments comment, @RequestHeader String Authorization) {
 		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		commentsService.newComment(comment, name);
+		return commentsService.newComment(comment, name);
 	}
 	
 	/*@Override

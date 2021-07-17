@@ -5,6 +5,6 @@ import com.chooseme.proyect.entities.Comments;
 public interface CommentsService {
 
 
-	public void newComment(Comments comment, String name);
+	public boolean newComment(Comments comment, String name);
 
 }
