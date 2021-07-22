@@ -2,6 +2,7 @@ package com.chooseme.proyect.entities;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,9 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -22,8 +27,10 @@ public class Comments {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	@Column(name = "comment_id")
 	private int comment_id;
+	
 	@Column(name = "comment")
 	private String comment;
 	
@@ -55,6 +62,14 @@ public class Comments {
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
 	Products product;
 
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@OneToMany(mappedBy="comment_id", fetch = FetchType.LAZY)
+    private Set<Impressions> impressions;
+	
+	@Transient
+	private String user_name;
+	@Transient
+	private String product_name;
 	
 	
 	
@@ -146,6 +161,15 @@ public class Comments {
 		this.up_down = up_down;
 	}
 	
+	
+	public Set<Impressions> getImpressions() {
+		return impressions;
+	}
+
+	public void setImpressions(Set<Impressions> impressions) {
+		this.impressions = impressions;
+	}
+
 	@PrePersist
     public void prePersist() {
         Date date = new Date();
@@ -153,6 +177,7 @@ public class Comments {
         this.created_at = new Timestamp(time);
         this.modified_at = new Timestamp(time);
 	}
+	
 	@PreUpdate
     public void preUpdate() {
     	 Date date = new Date();

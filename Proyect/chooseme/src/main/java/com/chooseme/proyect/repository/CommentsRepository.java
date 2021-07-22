@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Products;
 
 @Repository
 public interface CommentsRepository extends CrudRepository<Comments, Integer> {
@@ -65,9 +66,13 @@ public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 			+ "AND c.reviewer_id = :reviewer_id", nativeQuery = true)
 	public Comments newReview(int product_id, int reviewer_id);
 	
-//	@Query("SELECT c.comment, c.created_at, c.score, c.product_id, c.reviewer_id, c.comment_id FROM comments as c "
-//			+ "WHERE c.product_id = :product_id "
-//			+ "AND c.reviewer_id = :reviewer_id")
-//	public Comments newReview(int product_id, int reviewer_id);
+	@Query(value = "SELECT * FROM comments as c "
+			+ "WHERE c.score = :score ", nativeQuery = true)
+	public Iterable<Comments> findByScore(int score);
+	
+	@Query(value = "SELECT * FROM comments as c "
+			+ "WHERE p.created_at BETWEEN :create_atStart AND :create_atEnd "
+			, nativeQuery  = true)
+		public Iterable<Comments> getByDate(@Param ("create_atStart") String create_atStart, @Param ("create_atEnd") String create_atEnd);
 
-}//"SELECT u FROM Users u WHERE u.user_name = :username"
+}

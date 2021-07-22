@@ -8,8 +8,6 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -27,10 +25,10 @@ import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
-import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.TokensRepository;
 import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.UsersService;
+import com.chooseme.proyect.serviceImpl.CommentsServiceImp;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
 import com.chooseme.proyect.validator.UserValidatorComponent;
@@ -39,8 +37,11 @@ import utils.Exceptions.ApiUnprocessableEntity;
 
 @RestController
 public class UsersControllerImpl implements UsersController {
+	
 	@Autowired
 	UsersService userService;
+	@Autowired
+	CommentsServiceImp commentsService;
 	@Autowired
 	UserValidatorComponent userValidator;
 	@Autowired
@@ -50,13 +51,7 @@ public class UsersControllerImpl implements UsersController {
 	@Autowired
 	UsersRepository userRepo;
 	@Autowired
-	CommentsRepository commentsRepo;
-
-
-	@Autowired
 	TokensRepository tokenRepo;
-//	AuthenticationManager authenticationManager; 
-	
 	
 
 	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
@@ -65,6 +60,8 @@ public class UsersControllerImpl implements UsersController {
 		return userService.getPerfil(Authorization.substring(7));
 	}
 
+	
+	
 	@Override
 	@RequestMapping(value = "/users/findById", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Optional<Users> getUsersById(@RequestBody Users user) {
@@ -75,21 +72,22 @@ public class UsersControllerImpl implements UsersController {
 	 * para ver la estructura, consultar la carpeta donde se encuentran los archivos de postman
 	 */
 
+	
+	
 	@Override
 	@PostMapping(value = "/users/add",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean addUsers(@RequestBody Users newusers) throws ApiUnprocessableEntity {
 
-
 		if(this.userValidator.validator(newusers)) {
+			
 			userService.saveUser(newusers);
 			return true;
 
-		}else {
+		} else {
+			
 			return false;
 		}
-		
-		
-		
+
 	}
 	
 	
@@ -97,6 +95,7 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@PostMapping(value = "/users/desactivate", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean desactivateUsers(@RequestBody Users user, @RequestHeader String Authorization) {
+		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		user.setUser_name(name);
         return userService.desactivateUser(user);
@@ -107,6 +106,7 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@PostMapping(value = "/users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean deleteUsers(@RequestBody Users user, @RequestHeader String Authorization) {
+		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
 
@@ -114,17 +114,12 @@ public class UsersControllerImpl implements UsersController {
         return userService.deleteUsers(user, name);
     }
 
-	// http://localhost:8080/test (GET)
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
-	@Override
-	public Boolean test() {
-		return true;
-	}
 	
 
 	@Override
 	@RequestMapping(value =  "/users/top5", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<UsersDTO> top5(){
+		
 		return userService.getTop5();
 	}
 	
@@ -132,8 +127,10 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value =  "/users/search/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<UsersDTO> searchByName(@RequestBody Users user, @PathVariable("page") int page){
+		
 		return userService.sortByName(user, page);
 	}
+	
 	
 
 	@Override
@@ -159,11 +156,15 @@ public class UsersControllerImpl implements UsersController {
 		
 	}
 	
+	
+	
 	@Override
 	public List<Users> getUsers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 	
 	@Override
 	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -176,14 +177,18 @@ public class UsersControllerImpl implements UsersController {
 		newTokens.setToken(newToken);
 		tokenRepo.save(newTokens);
 		if (userNew.getPasstemp().equals(null)) {
+		
 			return ResponseEntity.badRequest().body("La nueva contraseña esta vacia");
 		}
+		
 		return ResponseEntity.ok(userService.updateUsers(userNew, name, newToken));
 	}
 	
+	
+	
 	@Override
 	@RequestMapping(value = "/users/out", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Boolean out(@RequestHeader String Authorization) {
+	public Boolean logout(@RequestHeader String Authorization) {
 //		Tokens token = new Tokens();
 //		String tokenNew = Authorization.substring(7);
 //		token.setToken(tokenNew);
@@ -196,10 +201,12 @@ public class UsersControllerImpl implements UsersController {
 		return true;
 	}
 
+	
+	
 	@Override
 	@RequestMapping(value = "/user/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
-	public Iterable<CommentsDTO> reviewers_id(@PathVariable("id") int id, @PathVariable("page") int page){
-		Iterable<Comments> comm = commentsRepo.findByIdy(id, PageRequest.of(page, 10));
+	public Iterable<CommentsDTO> findCommentsByReviewerId(@PathVariable("id") int id, @PathVariable("page") int page){
+		Iterable<Comments> comm = commentsService.findByReviewerId(id, 10);
 		Collection<CommentsDTO> commDTO = new HashSet<CommentsDTO>();
 		comm.forEach((c) -> {
 			commDTO.add(new CommentsDTO(c));
@@ -208,17 +215,19 @@ public class UsersControllerImpl implements UsersController {
 	}
 	
 	
+	
 	@Override
 	@RequestMapping(value = "/users/test", method = RequestMethod.GET, produces = "application/json")
-	public Boolean justtest() {
+	public Boolean justTest() {
 		return true;
 	}
 	
 	
-	
-
-
-
-	
+	// http://localhost:8080/test (GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+	@Override
+	public Boolean test() {
+		return true;
+	}
 	
 }

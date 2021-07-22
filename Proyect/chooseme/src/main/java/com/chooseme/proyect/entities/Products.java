@@ -68,7 +68,7 @@ public class Products {
 		this.description = description;
 	}
 	
-	public double getScore() {
+	public Double getScore() {
 		return score;
 	}
 	public void setScore(double score) {

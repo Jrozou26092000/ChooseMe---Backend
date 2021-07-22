@@ -12,15 +12,13 @@ public interface ProductsController {
 
 	public Iterable<Products> getProductByName(ProductsFilters Filters);
 
-	public Boolean producttest();
+	public Boolean productTest();
 
-	//public Iterable<Products> product_view(int id);
+	public Iterable<CommentsDTO> productView(Products product);
+	
+	public Iterable<CommentsDTO> getCommentsByProductsId(int id, int page);
 
-	public Iterable<CommentsDTO> product_view(Products product);
-
-	public Iterable<CommentsDTO> products_id(int id, int page);
-
-	public boolean product_newreview(Comments comment, String Authorization);
+	public boolean productNewReview(Comments comment, String Authorization);
 	
 	public void productNewImpression (Impressions impression, String Authorization);
 	
