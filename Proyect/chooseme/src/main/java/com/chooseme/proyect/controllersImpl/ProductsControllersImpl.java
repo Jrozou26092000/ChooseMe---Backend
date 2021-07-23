@@ -42,7 +42,7 @@ public class ProductsControllersImpl implements ProductsController {
 	JwtUtil jwtTokenUtil;
 	
 	@Override
-	@RequestMapping(value = "/products/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/products/search/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Products> getProductByName(@RequestBody ProductsFilters filter) {
 		
 		return productService.getProductsFilterd(filter);
