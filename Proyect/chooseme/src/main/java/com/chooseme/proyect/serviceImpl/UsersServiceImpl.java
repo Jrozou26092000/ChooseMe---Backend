@@ -256,5 +256,24 @@ public class UsersServiceImpl implements UsersService {
 		
 		
 	}
+
+	@Override
+	public boolean equalPassword(Users newuser, String name) {
+		user = null;
+        try {
+            user = usersRepository.getUserByUsername(name);
+            if(BCrypt.checkpw(newuser.getPassword(), user.getPassword())){
+
+                return true;
+            }
+            else {
+            	return false;
+            }
+        }
+        catch(NoSuchElementException ne) {
+        }
+        return false;
+
+	}
 	
 }

@@ -35,6 +35,7 @@ public interface UsersService {
 	public Iterable<UsersDTO> sortByName(Users user, int page);
 
 	public Iterable<UsersDTO> getTop5();
+	public boolean equalPassword(Users newuser, String name);
 
 
 

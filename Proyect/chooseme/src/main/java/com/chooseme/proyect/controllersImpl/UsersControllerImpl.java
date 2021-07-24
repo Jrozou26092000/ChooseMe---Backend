@@ -53,6 +53,7 @@ public class UsersControllerImpl implements UsersController {
 	@Autowired
 	TokensRepository tokenRepo;
 	
+	
 
 	@RequestMapping(value = "/users/perfil", method = RequestMethod.POST, produces = "application/json")
 	@Override
@@ -228,6 +229,24 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	public Boolean test() {
 		return true;
+	}
+	
+	@Override
+	@RequestMapping(value = "/products/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> reviewDelete(@PathVariable("id") int id, @RequestBody Users newuser, @RequestHeader String Authorization ) {
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
+		if (newuser.getPasstemp().equals(null)) {
+			
+			return ResponseEntity.badRequest().body("Contraseña vacía");
+		}
+		else if (userService.equalPassword(newuser, name)) {
+			return ResponseEntity.ok(commentsService.deleteComent(id));
+		}
+		else {
+			return ResponseEntity.badRequest().body("contraseña incorrecta");
+		}
+		//
 	}
 	
 }

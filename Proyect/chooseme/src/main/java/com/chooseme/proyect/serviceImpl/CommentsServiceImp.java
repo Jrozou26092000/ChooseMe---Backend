@@ -165,6 +165,23 @@ public class CommentsServiceImp implements CommentsService{
 		return commentRepo.findByIdy(id, PageRequest.of(page, 10));
 	}
 	
+	Comments comment;
+	
+	public boolean deleteComent(int id) {
+		comment = null;
+		try {
+			comment = (Comments) commentRepo.getById(id);
+			comment.setComment("Borrado");
+			comment.setScore(-1);
+	        commentRepo.save(comment);
+	        return true;
+		}
+		catch(NullPointerException np) {
+			return false;
+		}
+		
+	}
+	
 	
 
 }

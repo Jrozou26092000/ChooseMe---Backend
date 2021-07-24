@@ -57,5 +57,7 @@ public interface UsersController {
 
 	//Para testear la conexión
 	public Boolean justTest();
+
+	ResponseEntity<?> reviewDelete(int id, Users password, String Authorization);
 	
 }
