@@ -250,7 +250,6 @@ public class UsersControllerImpl implements UsersController {
 	@RequestMapping(value = "/products/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> reviewDelete(@PathVariable("id") int id, @RequestBody Users newuser, @RequestHeader String Authorization ) {
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
 		if (newuser.getPasstemp().equals(null)) {
 			
 			return ResponseEntity.badRequest().body("Contraseña vacía");
@@ -261,7 +260,28 @@ public class UsersControllerImpl implements UsersController {
 		else {
 			return ResponseEntity.badRequest().body("contraseña incorrecta");
 		}
-		//
+		
 	}
+	
+
+
+	@Override
+	@RequestMapping(value = "/review/update", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> reviewUpdate(@RequestBody Comments comment, @RequestHeader String Authorization){
+		
+
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		
+		
+		if(commentsService.update(comment)) {
+			return ResponseEntity.ok("ok");
+		}
+		
+		else {
+			return ResponseEntity.badRequest().body("algo salio mal");
+		}
+		
+	}
+	
 	
 }

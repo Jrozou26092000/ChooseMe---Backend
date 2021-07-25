@@ -62,8 +62,7 @@ public class CommentsServiceImp implements CommentsService{
 	
 	
 	@Override
-	public String addNewLike(Likes like) {
-		String res = "false";
+	public boolean addNewLike(Likes like) {
 		if (!userRepo.findById(like.getUser_id()).isEmpty() && !commentRepo.findById(like.getComment_id()).isEmpty()) {
 			Optional<Likes> oldLike = likesRepo.getByUserAndComment(like.getUser_id(), like.getComment_id());
 			Comments comment = commentRepo.findById(like.getComment_id()).get();
@@ -75,11 +74,9 @@ public class CommentsServiceImp implements CommentsService{
 				newLike.setUp_down(like.getUp_down());
 				likesRepo.save(newLike);
 				if (like.getUp_down() == 1) {
-					res = "Nuevo like";
 					comment.setUps(comment.getUps()+1);
 					reviewer.setPoints(reviewer.getPoints()+1);
 				} else {
-					res = "Nuevo dislike";
 					comment.setDowns(comment.getDowns()+1);
 					reviewer.setPoints(reviewer.getPoints()-1);
 				}
@@ -88,11 +85,9 @@ public class CommentsServiceImp implements CommentsService{
 				if (like.getUp_down() == newLike.getUp_down()) {
 					likesRepo.delete(newLike);
 					if (like.getUp_down() == 1) {
-						res = "Ya le había dado like";
 						comment.setUps(comment.getUps()-1);
 						reviewer.setPoints(reviewer.getPoints()-1);
 					} else {
-						res = "Ya le había dado dislike";
 						comment.setDowns(comment.getDowns()-1);
 						reviewer.setPoints(reviewer.getPoints()+1);
 					}
@@ -100,12 +95,10 @@ public class CommentsServiceImp implements CommentsService{
 					newLike.setUp_down(like.getUp_down());
 					likesRepo.save(newLike);
 					if (like.getUp_down() == 1) {
-						res = "Era dislike, ahora like";
 						comment.setUps(comment.getUps()+1);
 						comment.setDowns(comment.getDowns()-1);
 						reviewer.setPoints(reviewer.getPoints()+2);
 					} else {
-						res = "Era like, ahora dislike";
 						comment.setDowns(comment.getDowns()+1);
 						comment.setUps(comment.getUps()-1);
 						reviewer.setPoints(reviewer.getPoints()-2);
@@ -114,7 +107,7 @@ public class CommentsServiceImp implements CommentsService{
 			}
 			commentRepo.save(comment);
 		}
-		return res;
+		return true;
 	}
 
 
@@ -241,6 +234,26 @@ public class CommentsServiceImp implements CommentsService{
 			return false;
 		}
 		
+	}
+
+
+
+	public boolean update(Comments comment2) {
+		comment = null;
+		int id;
+		id = comment2.getComment_id();
+		try {
+			comment = (Comments) commentRepo.getById(id);
+			comment.setUpdate(comment2.getUpdate());
+			comment.setScore(comment2.getScore());
+	        commentRepo.save(comment);
+	        return true;
+		}
+		catch(NullPointerException np) {
+			return false;
+		}
+		
+
 	}
 	
 	
