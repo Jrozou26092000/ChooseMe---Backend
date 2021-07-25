@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
+import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Users;
 
 import utils.Exceptions.ApiUnprocessableEntity;
@@ -29,6 +30,9 @@ public interface UsersController {
 	
 	//Borra un usuario, para realizar la operacion se requiere la contraseña del usuario
 	public Boolean deleteUsers(Users user, String Authorization);
+	
+	//Realiza la acción de darle like a una review
+	public Boolean likeReview(Likes like, String Authorization);
 	
 	//Realiza el login, para realizar la operacion se requiere la contraseña del usuario
 	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;

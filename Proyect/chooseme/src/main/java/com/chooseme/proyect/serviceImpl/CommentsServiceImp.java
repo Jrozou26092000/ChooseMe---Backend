@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.CommentsRepository;
+import com.chooseme.proyect.repository.LikesRepository;
 import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.util.CommentSorter;
@@ -28,6 +31,8 @@ public class CommentsServiceImp implements CommentsService{
 	UsersRepository userRepo;
 	@Autowired
 	CommentsRepository commentRepo;
+	@Autowired
+	LikesRepository likesRepo;
 	Comments comm;
 	Users user;
 	@Override
@@ -51,13 +56,55 @@ public class CommentsServiceImp implements CommentsService{
 			return true;
 		 }else {
 			 return false;
-		 }
-		
-		
-		
-		
-		
+		 }	
 	}
+	
+	
+	
+	@Override
+	public boolean addNewLike(Likes like) {
+		if (!userRepo.findById(like.getUser_id()).isEmpty() && !commentRepo.findById(like.getComment_id()).isEmpty()) {
+			Optional<Likes> oldLike = likesRepo.getByUserAndComment(like.getUser_id(), like.getComment_id());
+			Comments comment = commentRepo.findById(like.getComment_id()).get();
+			if (oldLike.isEmpty()) {
+				Likes newLike = new Likes();
+				newLike.setComment_id(like.getComment_id());
+				newLike.setUser_id(like.getUser_id());
+				newLike.setUp_down(like.getUp_down());
+				likesRepo.save(newLike);
+				if (like.getUp_down() == 1) {
+					comment.setUps(comment.getUps()+1);
+				} else {
+					comment.setDowns(comment.getDowns()+1);
+				}
+			} else {
+				Likes newLike = oldLike.get();
+				if (like.getUp_down() == newLike.getUp_down()) {
+					likesRepo.delete(newLike);
+					if (like.getUp_down() == 1) {
+						comment.setUps(comment.getUps()-1);
+					} else {
+						comment.setDowns(comment.getDowns()-1);
+					}
+				} else {
+					newLike.setUp_down(like.getUp_down());
+					likesRepo.save(newLike);
+					if (like.getUp_down() == 1) {
+						comment.setUps(comment.getUps()+1);
+						comment.setDowns(comment.getDowns()-1);
+					} else {
+						comment.setDowns(comment.getDowns()+1);
+						comment.setUps(comment.getUps()-1);
+					}
+				}
+			}
+			commentRepo.save(comment);
+		}
+		return true;
+	}
+
+
+
 	@Override
 	public Iterable<Comments> findCommentsFiltered (CommentsDTO filter, int page) {
 		Set<Comments> searchSet = new HashSet<Comments>();

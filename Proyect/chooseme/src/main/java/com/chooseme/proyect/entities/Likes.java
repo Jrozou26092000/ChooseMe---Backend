@@ -2,14 +2,17 @@ package com.chooseme.proyect.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "likes")
+@Entity
 @Table(name = "likes")
 public class Likes {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "like_id")
 	private int like_id;
 	

@@ -22,6 +22,7 @@ import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
@@ -114,8 +115,18 @@ public class UsersControllerImpl implements UsersController {
 		tokenRepo.delete(token);
         return userService.deleteUsers(user, name);
     }
-
 	
+	@Override
+	@PostMapping(value = "/users/like", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean likeReview(@RequestBody Likes like, @RequestHeader String Authorization) {
+		
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
+		Users u = userService.findUserByName(name).get();
+		if (u.getUser_id() != like.getUser_id() || (like.getUp_down() != -1 && like.getUp_down() != 1)) {
+			return false;
+		}
+        return commentsService.addNewLike(like);
+    }
 
 	@Override
 	@RequestMapping(value =  "/users/top5", produces = MediaType.APPLICATION_JSON_VALUE)
