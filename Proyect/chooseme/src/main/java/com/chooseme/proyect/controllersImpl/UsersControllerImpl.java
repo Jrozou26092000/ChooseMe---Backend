@@ -118,7 +118,7 @@ public class UsersControllerImpl implements UsersController {
 	
 	@Override
 	@PostMapping(value = "/users/like", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean likeReview(@RequestBody Likes like, @RequestHeader String Authorization) {
+    public String likeReview(@RequestBody Likes like, @RequestHeader String Authorization) {
 		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		Users u = userService.findUserByName(name).get();
@@ -127,7 +127,7 @@ public class UsersControllerImpl implements UsersController {
 //		}
 		like.setUser_id(u.getUser_id());
 		if (like.getUp_down() != -1 && like.getUp_down() != 1) {
-			return false;
+			return "false";
 		}
         return commentsService.addNewLike(like);
     }

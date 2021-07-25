@@ -32,7 +32,7 @@ public interface UsersController {
 	public Boolean deleteUsers(Users user, String Authorization);
 	
 	//Realiza la acción de darle like a una review
-	public Boolean likeReview(Likes like, String Authorization);
+	public String likeReview(Likes like, String Authorization);
 	
 	//Realiza el login, para realizar la operacion se requiere la contraseña del usuario
 	public ResponseEntity<?> loggin(Users userNew) throws ApiUnprocessableEntity;

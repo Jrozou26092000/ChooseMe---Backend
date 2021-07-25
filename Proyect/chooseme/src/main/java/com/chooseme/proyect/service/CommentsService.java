@@ -15,6 +15,6 @@ public interface CommentsService {
 	
 	public Iterable<Comments> findByReviewerId(int id, int page);
 	
-	public boolean addNewLike(Likes like);
+	public String addNewLike(Likes like);
 
 }
