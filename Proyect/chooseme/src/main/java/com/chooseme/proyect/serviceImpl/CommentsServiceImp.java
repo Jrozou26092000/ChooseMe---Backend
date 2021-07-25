@@ -66,6 +66,7 @@ public class CommentsServiceImp implements CommentsService{
 		if (!userRepo.findById(like.getUser_id()).isEmpty() && !commentRepo.findById(like.getComment_id()).isEmpty()) {
 			Optional<Likes> oldLike = likesRepo.getByUserAndComment(like.getUser_id(), like.getComment_id());
 			Comments comment = commentRepo.findById(like.getComment_id()).get();
+			Users reviewer = userRepo.findById(comment.getReviewer_id()).get();
 			if (oldLike.isEmpty()) {
 				Likes newLike = new Likes();
 				newLike.setComment_id(like.getComment_id());
@@ -74,8 +75,10 @@ public class CommentsServiceImp implements CommentsService{
 				likesRepo.save(newLike);
 				if (like.getUp_down() == 1) {
 					comment.setUps(comment.getUps()+1);
+					reviewer.setPoints(reviewer.getPoints()+1);
 				} else {
 					comment.setDowns(comment.getDowns()+1);
+					reviewer.setPoints(reviewer.getPoints()-1);
 				}
 			} else {
 				Likes newLike = oldLike.get();
@@ -83,8 +86,10 @@ public class CommentsServiceImp implements CommentsService{
 					likesRepo.delete(newLike);
 					if (like.getUp_down() == 1) {
 						comment.setUps(comment.getUps()-1);
+						reviewer.setPoints(reviewer.getPoints()-1);
 					} else {
 						comment.setDowns(comment.getDowns()-1);
+						reviewer.setPoints(reviewer.getPoints()+1);
 					}
 				} else {
 					newLike.setUp_down(like.getUp_down());
@@ -92,9 +97,11 @@ public class CommentsServiceImp implements CommentsService{
 					if (like.getUp_down() == 1) {
 						comment.setUps(comment.getUps()+1);
 						comment.setDowns(comment.getDowns()-1);
+						reviewer.setPoints(reviewer.getPoints()+2);
 					} else {
 						comment.setDowns(comment.getDowns()+1);
 						comment.setUps(comment.getUps()-1);
+						reviewer.setPoints(reviewer.getPoints()-2);
 					}
 				}
 			}
