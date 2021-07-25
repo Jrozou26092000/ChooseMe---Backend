@@ -218,7 +218,7 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/user/review/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
 	public Iterable<CommentsDTO> findCommentsByReviewerId(@PathVariable("id") int id, @PathVariable("page") int page){
-		Iterable<Comments> comm = commentsService.findByReviewerId(id, 10);
+		Iterable<Comments> comm = commentsService.findByReviewerId(id, page);
 		Collection<CommentsDTO> commDTO = new HashSet<CommentsDTO>();
 		comm.forEach((c) -> {
 			commDTO.add(new CommentsDTO(c));
