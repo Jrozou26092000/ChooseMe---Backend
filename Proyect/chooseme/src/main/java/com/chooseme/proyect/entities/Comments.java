@@ -46,8 +46,14 @@ public class Comments {
 	@Column(name = "score")
 	private int score;
 	
-	@Column(name = "up_down")
-	private int up_down;
+//	@Column(name = "up_down")
+//	private int up_down;
+	
+	@Column(name = "ups")
+	private int ups;
+	
+	@Column(name = "downs")
+	private int downs;
 	
 	@Column(name = "product_id")
 	private int product_id;
@@ -152,16 +158,24 @@ public class Comments {
 	}
 	public void setScore(int score) {
 		this.score = score;
-	}
+	}	
 	
-	public int getUp_down() {
-		return up_down;
+	public int getUps() {
+		return ups;
 	}
-	public void setUp_down(int up_down) {
-		this.up_down = up_down;
+
+	public void setUps(int ups) {
+		this.ups = ups;
 	}
-	
-	
+
+	public int getDowns() {
+		return downs;
+	}
+
+	public void setDowns(int downs) {
+		this.downs = downs;
+	}
+
 	public Set<Impressions> getImpressions() {
 		return impressions;
 	}

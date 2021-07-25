@@ -30,22 +30,26 @@ public class CommentsDTO implements Serializable {
 	private String created_at;
 	private int reviewer_id;
 	private Integer score;
-	private int up_down;
+//	private int up_down;
+	private int ups;
+	private int downs;
 	private int product_id;
 	private String user_name;
 	private String product_name;
 	private int user_id;
 	private Collection<ImpressionsDTO> impressions;
 	
-	public CommentsDTO(int comment_id, String comment, String created_at, int reviewer_id, int score, int up_down,
-			int product_id, String user_name, String product_name, int user_id) {
+	public CommentsDTO(int comment_id, String comment, String created_at, int reviewer_id, int score, int ups,
+			int downs, int product_id, String user_name, String product_name, int user_id) {
 		super();
 		this.comment_id = comment_id;
 		this.comment = comment;
 		this.created_at = created_at;
 		this.reviewer_id = reviewer_id;
 		this.score = score;
-		this.up_down = up_down;
+//		this.up_down = up_down;
+		this.ups = ups;
+		this.downs = downs;
 		this.product_id = product_id;
 		this.product_name = product_name;
 		this.user_name = user_name;
@@ -59,7 +63,9 @@ public class CommentsDTO implements Serializable {
 		this.created_at = comm.getCreated_at().toString();
 		this.reviewer_id = comm.getReviewerid();
 		this.score = comm.getScore();
-		this.up_down = comm.getUp_down();
+//		this.up_down = comm.getUp_down();
+		this.ups = comm.getUps();
+		this.downs = comm.getDowns();
 		this.product_id = comm.getProduct_id();
 		this.user_name = comm.getUser().getUser_name();
 		this.user_id = comm.getUser().getUser_id();
@@ -101,15 +107,33 @@ public class CommentsDTO implements Serializable {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public int getUp_down() {
-		return up_down;
-	}
-	public void setUp_down(int up_down) {
-		this.up_down = up_down;
-	}
+//	public int getUp_down() {
+//		return up_down;
+//	}
+//	public void setUp_down(int up_down) {
+//		this.up_down = up_down;
+//	}
+	
 	public int getProduct_id() {
 		return product_id;
 	}
+	
+	public int getUps() {
+		return ups;
+	}
+
+	public void setUps(int ups) {
+		this.ups = ups;
+	}
+
+	public int getDowns() {
+		return downs;
+	}
+
+	public void setDowns(int downs) {
+		this.downs = downs;
+	}
+
 	public void setProduct_id(int product_id) {
 		this.product_id = product_id;
 	}
