@@ -122,7 +122,11 @@ public class UsersControllerImpl implements UsersController {
 		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		Users u = userService.findUserByName(name).get();
-		if (u.getUser_id() != like.getUser_id() || (like.getUp_down() != -1 && like.getUp_down() != 1)) {
+//		if (u.getUser_id() != like.getUser_id() || (like.getUp_down() != -1 && like.getUp_down() != 1)) {
+//			return false;
+//		}
+		like.setUser_id(u.getUser_id());
+		if (like.getUp_down() != -1 && like.getUp_down() != 1) {
 			return false;
 		}
         return commentsService.addNewLike(like);
