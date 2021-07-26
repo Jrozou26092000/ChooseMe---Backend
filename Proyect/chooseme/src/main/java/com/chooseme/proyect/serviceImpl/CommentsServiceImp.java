@@ -2,6 +2,7 @@ package com.chooseme.proyect.serviceImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -240,13 +241,14 @@ public class CommentsServiceImp implements CommentsService{
 	public boolean deleteComent(int id) {
 		comment = null;
 		try {
-			comment = (Comments) commentRepo.getById(id);
-			comment.setComment("Borrado");
-			comment.setScore(-1);
-	        commentRepo.save(comment);
+			comment = commentRepo.getCommentById(id);
+			comment.setComment("Comentario Eliminado");
+			comment.setScore(0);
+			commentRepo.save(comment);
 	        return true;
 		}
 		catch(NullPointerException np) {
+			
 			return false;
 		}
 		

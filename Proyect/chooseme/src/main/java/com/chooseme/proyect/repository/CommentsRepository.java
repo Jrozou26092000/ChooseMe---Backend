@@ -30,6 +30,10 @@ public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 	public Iterable<Comments> getById(@Param ("id") int id);
 
 	
+	@Query("SELECT c FROM Comments c "
+			+ "WHERE c.comment_id = :id")
+	public Comments getCommentById(@Param ("id") int id);
+	
 //	@Query(value = "SELECT c.comment, c.created_at, c.score, c.product_id, c.reviewer_id, c.comment_id, u.user_name, u.user_id FROM comments as c "
 //			+ "JOIN users as u "
 //			+ "ON c.reviewer_id = u.user_id "
