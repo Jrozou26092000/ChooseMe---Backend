@@ -65,8 +65,8 @@ public interface UsersController {
 	public Boolean justTest();
 
 
-	ResponseEntity<?> reviewUpdate(Impressions impresion, String Authorization);
-
 	ResponseEntity<?> reviewDelete(int id, Users newuser, String Authorization);
+
+	ResponseEntity<?> reviewUpdate(Impressions impresion);
 	
 }
