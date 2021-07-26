@@ -252,10 +252,19 @@ public class CommentsServiceImp implements CommentsService{
 		id = comment2.getComment_id();
 		try {
 			comment = (Comments) commentRepo.getById(id);
-			comment.setUpdate(comment2.getUpdate());
-			comment.setScore(comment2.getScore());
-	        commentRepo.save(comment);
-	        return true;
+			if (comment.getUpdate() == null) {
+				comment.setUpdate(comment2.getUpdate());
+				comment.setScore(comment2.getScore());
+		        commentRepo.save(comment);
+		        return true;
+			}
+			else {
+				comment.setComment(comment.getUpdate());
+				comment.setUpdate(comment2.getUpdate());
+				comment.setScore(comment2.getScore());
+				commentRepo.save(comment);
+				return false;
+			}
 		}
 		catch(NullPointerException np) {
 			return false;
