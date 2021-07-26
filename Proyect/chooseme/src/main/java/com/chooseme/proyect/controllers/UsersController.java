@@ -67,6 +67,6 @@ public interface UsersController {
 
 	ResponseEntity<?> reviewDelete(int id, Users newuser, String Authorization);
 
-	ResponseEntity<?> reviewUpdate(Impressions impresion);
+	ResponseEntity<?> reviewUpdate(Impressions impresion, String Authorization);
 	
 }

@@ -256,16 +256,27 @@ public class CommentsServiceImp implements CommentsService{
 
 
 
-	public boolean update(Impressions impr) {
-		
+	public boolean update(Impressions impr, String name) {
+		comment = null;
 		impression = null;
+		int id = impression.getComment_id();
+		comment = commentRepo.getCommentById(id);
+		int idreviewer = comment.getReviewer_id();
+		Users reviewer = userRepo.getUserById(idreviewer);
+		
+		
 		
 		try {
-			impression.setImpression(impr.getImpression());
-			impression.setUser_id(impr.getUser_id());
-			impression.setComment_id(impr.getComment_id());
-			imprRepo.save(impression);
-			return true;
+			if(reviewer.getName() == name) {
+				impression.setImpression(impr.getImpression());
+				impression.setUser_id(impr.getUser_id());
+				impression.setComment_id(impr.getComment_id());
+				imprRepo.save(impression);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		catch(NullPointerException np) {
 			return false;

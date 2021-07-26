@@ -269,11 +269,13 @@ public class UsersControllerImpl implements UsersController {
 
 	@Override
 	@RequestMapping(value = "/review/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> reviewUpdate(@RequestBody Impressions impresion){
+	public ResponseEntity<?> reviewUpdate(@RequestBody Impressions impresion, @RequestHeader String Authorization){
+		
+
+		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		
 		
-		
-		if(commentsService.update(impresion)) {
+		if(commentsService.update(impresion, name)) {
 			return ResponseEntity.ok("ok");
 		}
 		

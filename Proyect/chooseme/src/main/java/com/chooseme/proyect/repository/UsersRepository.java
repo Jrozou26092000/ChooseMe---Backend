@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Integer> {
@@ -32,7 +33,11 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 			+ "LIMIT :page, 10 ", nativeQuery = true)
 	public Iterable<Users> sortByName(String name, int page);
 
-
+	
+	@Query("SELECT c FROM Users c "
+			+ "WHERE c.user_id = :id")
+	public Users getUserById(@Param ("id") int id);
+	
 	
 	
 
