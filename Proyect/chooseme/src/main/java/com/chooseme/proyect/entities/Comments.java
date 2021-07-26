@@ -55,6 +55,9 @@ public class Comments {
 	@Column(name = "downs")
 	private int downs;
 	
+	@Column(name = "edit")
+	private String edit;
+	
 	@Column(name = "product_id")
 	private int product_id;
 	
@@ -76,16 +79,13 @@ public class Comments {
 	private String user_name;
 	@Transient
 	private String product_name;
-	
-	@Column(name = "update")
-	private String update;
-	
-	public String getUpdate() {
-		return update;
+
+	public String getEdit() {
+		return edit;
 	}
 
-	public void setUpdate(String update) {
-		this.update = update;
+	public void setEdit(String edit) {
+		this.edit = edit;
 	}
 
 	public Products getProduct() {
