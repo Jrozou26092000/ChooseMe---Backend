@@ -22,6 +22,7 @@ import com.chooseme.proyect.controllers.UsersController;
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Tokens;
 import com.chooseme.proyect.entities.Users;
@@ -269,13 +270,13 @@ public class UsersControllerImpl implements UsersController {
 
 	@Override
 	@RequestMapping(value = "/review/update", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> reviewUpdate(@RequestBody Comments comment, @RequestHeader String Authorization){
+	public ResponseEntity<?> reviewUpdate(@RequestBody Impressions impresion, @RequestHeader String Authorization){
 		
 
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		
 		
-		if(commentsService.update(comment)) {
+		if(commentsService.update(impresion)) {
 			return ResponseEntity.ok("ok");
 		}
 		

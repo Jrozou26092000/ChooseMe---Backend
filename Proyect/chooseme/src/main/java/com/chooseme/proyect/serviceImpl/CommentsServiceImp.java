@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,13 +16,17 @@ import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.repository.CommentsRepository;
+import com.chooseme.proyect.repository.ImpressionsRepository;
 import com.chooseme.proyect.repository.LikesRepository;
 import com.chooseme.proyect.repository.UsersRepository;
 import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.util.CommentSorter;
+
+import utils.BCrypt;
 
 
 @Service
@@ -30,11 +35,14 @@ public class CommentsServiceImp implements CommentsService{
 	@Autowired
 	UsersRepository userRepo;
 	@Autowired
+	ImpressionsRepository imprRepo;
+	@Autowired
 	CommentsRepository commentRepo;
 	@Autowired
 	LikesRepository likesRepo;
 	Comments comm;
 	Users user;
+	Impressions impression;
 	@Override
 	public boolean newComment(Comments comment, String name) {
 		
@@ -246,29 +254,24 @@ public class CommentsServiceImp implements CommentsService{
 
 
 
-	public boolean update(Comments comment2) {
-		comment = null;
-		int id;
-		id = comment2.getComment_id();
+	public boolean update(Impressions impr) {
+		
+		impression = null;
+		
 		try {
-			comment = (Comments) commentRepo.getById(id);
-			if (comment.getUpdate() == null) {
-				comment.setUpdate(comment2.getUpdate());
-				comment.setScore(comment2.getScore());
-		        commentRepo.save(comment);
-		        return true;
-			}
-			else {
-				comment.setComment(comment.getUpdate());
-				comment.setUpdate(comment2.getUpdate());
-				comment.setScore(comment2.getScore());
-				commentRepo.save(comment);
-				return false;
-			}
+			impression.setImpression(impr.getImpression());
+			impression.setUser_id(impr.getUser_id());
+			impression.setComment_id(impr.getComment_id());
+			imprRepo.save(impression);
+			return true;
 		}
 		catch(NullPointerException np) {
 			return false;
 		}
+		catch(NoSuchElementException ne) {
+			return false;
+		}
+		
 		
 
 	}

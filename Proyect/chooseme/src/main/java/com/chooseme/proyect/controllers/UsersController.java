@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
 import com.chooseme.proyect.entities.Comments;
+import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Users;
 
@@ -64,7 +65,7 @@ public interface UsersController {
 	public Boolean justTest();
 
 
-	ResponseEntity<?> reviewUpdate(Comments comment, String Authorization);
+	ResponseEntity<?> reviewUpdate(Impressions impresion, String Authorization);
 
 	ResponseEntity<?> reviewDelete(int id, Users newuser, String Authorization);
 	
