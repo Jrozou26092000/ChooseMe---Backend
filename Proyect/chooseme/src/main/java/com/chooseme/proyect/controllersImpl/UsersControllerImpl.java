@@ -246,6 +246,7 @@ public class UsersControllerImpl implements UsersController {
 		return true;
 	}
 	
+
 	@Override
 	@RequestMapping(value = "/products/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> reviewDelete(@PathVariable("id") int id, @RequestBody Users newuser, @RequestHeader String Authorization ) {
@@ -263,6 +264,7 @@ public class UsersControllerImpl implements UsersController {
 		
 	}
 	
+
 
 
 	@Override
