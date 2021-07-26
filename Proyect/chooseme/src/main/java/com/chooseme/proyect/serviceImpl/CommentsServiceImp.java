@@ -108,12 +108,12 @@ public class CommentsServiceImp implements CommentsService{
 					newLike.setUp_down(like.getUp_down());
 					likesRepo.save(newLike);
 					if (like.getUp_down() == 1) {
-						res = "Era dislike, ahora like";
+						res = "Ya le había dado dislike";
 						comment.setUps(comment.getUps()+1);
 						comment.setDowns(comment.getDowns()-1);
 						reviewer.setPoints(reviewer.getPoints()+2);
 					} else {
-						res = "Era like, ahora dislike";
+						res = "Ya le había dado like";
 						comment.setDowns(comment.getDowns()+1);
 						comment.setUps(comment.getUps()-1);
 						reviewer.setPoints(reviewer.getPoints()-2);
