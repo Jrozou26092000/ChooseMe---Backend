@@ -252,7 +252,7 @@ public class UsersControllerImpl implements UsersController {
 	@RequestMapping(value = "/products/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> reviewDelete(@PathVariable("id") int id, @RequestBody Users newuser, @RequestHeader String Authorization ) {
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
-		if (newuser.getPasstemp().equals(null)) {
+		if (newuser.getPassword().equals(null)) {
 			
 			return ResponseEntity.badRequest().body("Contraseña vacía");
 		}
