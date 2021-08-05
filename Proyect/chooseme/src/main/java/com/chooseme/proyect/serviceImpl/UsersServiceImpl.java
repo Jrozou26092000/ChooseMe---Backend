@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.chooseme.proyect.dto.CommentsDTO;
@@ -244,7 +245,7 @@ public class UsersServiceImpl implements UsersService {
 		Iterable<Users> user = null;
 		Collection<UsersDTO> userDTO  = new HashSet<UsersDTO>();
 		try {
-			user = usersRepository.sortByName(sortuser.getUser_name(), page);
+			user = usersRepository.sortByName(sortuser.getUser_name(), PageRequest.of(page, 10));
 			user.forEach((c) ->{
 				userDTO.add(new UsersDTO(c));
 			});
