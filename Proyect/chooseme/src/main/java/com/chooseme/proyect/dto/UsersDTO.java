@@ -1,14 +1,13 @@
 package com.chooseme.proyect.dto;
 
-import java.io.Serializable;
+
 import java.sql.Blob;
-import java.util.Iterator;
 
 import com.chooseme.proyect.entities.Users;
 
 
 
-public class UsersDTO implements Serializable {
+public class UsersDTO {
 	
 	private int user_id;
 	

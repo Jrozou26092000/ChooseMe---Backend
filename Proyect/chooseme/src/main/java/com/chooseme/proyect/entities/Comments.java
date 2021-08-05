@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -45,9 +44,6 @@ public class Comments {
 	
 	@Column(name = "score")
 	private int score;
-	
-//	@Column(name = "up_down")
-//	private int up_down;
 	
 	@Column(name = "ups")
 	private int ups;

@@ -1,24 +1,13 @@
 package com.chooseme.proyect.dto;
 
-import java.io.Serializable;
-import java.sql.Blob;
+
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Impressions;
-import com.chooseme.proyect.entities.Products;
-import com.chooseme.proyect.entities.Users;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
-public class ImpressionsDTO implements Serializable {
+public class ImpressionsDTO {
 	
 	private int impression_id;
 	private int comment_id;

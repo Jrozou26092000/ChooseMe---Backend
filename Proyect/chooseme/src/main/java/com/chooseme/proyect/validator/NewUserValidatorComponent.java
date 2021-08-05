@@ -13,7 +13,7 @@ import com.chooseme.proyect.service.UsersService;
 import utils.Exceptions.ApiUnprocessableEntity;
 
 @Component
-public class UserValidatorComponent implements UserValidator {
+public class NewUserValidatorComponent implements NewUserValidator {
 	@Autowired
 	UsersService userService;
 	UsersRepository userRepository;
@@ -189,13 +189,6 @@ public class UserValidatorComponent implements UserValidator {
 		return true;
 	}
 	
-	private void message(String message) throws ApiUnprocessableEntity {
-		throw new ApiUnprocessableEntity(message);
-	}
-
-
-
-
 
 
 }

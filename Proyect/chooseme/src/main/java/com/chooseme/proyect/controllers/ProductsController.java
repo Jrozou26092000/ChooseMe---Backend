@@ -1,6 +1,5 @@
 package com.chooseme.proyect.controllers;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.ProductsFilters;
@@ -13,7 +12,6 @@ public interface ProductsController {
 
 	public Iterable<Products> getProductByName(ProductsFilters Filters);
 
-	public Boolean productTest();
 
 	public Iterable<CommentsDTO> productView(Products product);
 	
@@ -23,8 +21,7 @@ public interface ProductsController {
 	
 	public void productNewImpression (Impressions impression, String Authorization);
 
-	ResponseEntity<?> reviewDelete(int id);
 	
-	//public boolean addProducts(Products newproducts);
+
 
 }

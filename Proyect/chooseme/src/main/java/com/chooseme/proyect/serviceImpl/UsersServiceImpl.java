@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
-import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.util.JwtUtil;
-import com.chooseme.proyect.validator.UserValidatorComponent;
+import com.chooseme.proyect.validator.NewUserValidatorComponent;
 
 import utils.BCrypt;
 import utils.Exceptions.ApiUnprocessableEntity;
@@ -30,7 +28,7 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	JwtUtil jwtTokenUtil;
 	@Autowired
-	UserValidatorComponent logginValidator;
+	NewUserValidatorComponent logginValidator;
 	
 	
 	Users user;

@@ -1,6 +1,6 @@
 package com.chooseme.proyect.controllers;
 
-import java.util.List;	
+
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
-import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Likes;
 import com.chooseme.proyect.entities.Users;
@@ -18,9 +17,7 @@ import utils.Exceptions.ApiUnprocessableEntity;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public interface UsersController {
 	
-	//Devuelve una lista de usuarios de tipo User
-	public List<Users> getUsers();
-	
+
 	//Busca un usuario por su id (user_id)
 	public Optional<Users> getUsersById(Users user);
 	
@@ -56,17 +53,9 @@ public interface UsersController {
 
 	//Logout de un usuario
 	public Boolean logout(String Authorization);
-		
-	
-	//Para testear la conexión
-	public Boolean test();
 
-	//Para testear la conexión
-	public Boolean justTest();
+	public ResponseEntity<?> reviewDelete(int id, Users newuser, String Authorization);
 
-
-	ResponseEntity<?> reviewDelete(int id, Users newuser, String Authorization);
-
-	ResponseEntity<?> reviewUpdate(Impressions impresion, String Authorization);
+	public ResponseEntity<?> reviewUpdate(Impressions impresion, String Authorization);
 	
 }

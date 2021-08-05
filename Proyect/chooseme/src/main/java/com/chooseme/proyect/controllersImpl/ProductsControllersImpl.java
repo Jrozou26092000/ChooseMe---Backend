@@ -8,7 +8,6 @@ import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,7 +21,6 @@ import com.chooseme.proyect.dto.ProductsFilters;
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Impressions;
 import com.chooseme.proyect.entities.Products;
-import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.service.ImpressionsService;
 import com.chooseme.proyect.service.ProductsService;
@@ -50,21 +48,6 @@ public class ProductsControllersImpl implements ProductsController {
 		return productService.getProductsFilterd(filter);
 		
 	}
-	
-	@Override
-	@RequestMapping(value = "/product/test/{id}", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> reviewDelete(@PathVariable("id") int id){
-		return ResponseEntity.ok(commentsService.deleteComent(id));
-	}
-
-	@Override
-	@RequestMapping(value = "/products/test", method = RequestMethod.GET, produces = "application/json")
-	public Boolean productTest() {
-		return true;
-	}
-	
-	
-	
 
 	@Override
 	@RequestMapping(value = "/product_view", produces = "application/json")

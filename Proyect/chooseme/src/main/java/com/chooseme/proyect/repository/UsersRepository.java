@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;
 
 public interface UsersRepository extends CrudRepository<Users, Integer> {

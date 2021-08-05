@@ -18,7 +18,6 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 	
-	//No estoy seguro de implementar esto aqui
 	@Autowired
 	private TokensRepository tokenRepo;
 
