@@ -29,6 +29,7 @@ import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
 import com.chooseme.proyect.repository.TokensRepository;
 import com.chooseme.proyect.repository.UsersRepository;
+import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.service.UsersService;
 import com.chooseme.proyect.serviceImpl.CommentsServiceImp;
 import com.chooseme.proyect.util.JwtUtil;
@@ -43,7 +44,7 @@ public class UsersControllerImpl implements UsersController {
 	@Autowired
 	UsersService userService;
 	@Autowired
-	CommentsServiceImp commentsService;
+	CommentsService commentsService;
 	@Autowired
 	UserValidatorComponent userValidator;
 	@Autowired

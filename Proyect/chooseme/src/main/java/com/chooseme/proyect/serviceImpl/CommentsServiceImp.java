@@ -238,13 +238,14 @@ public class CommentsServiceImp implements CommentsService{
 	
 	Comments comment;
 	
+	
+	
 	public boolean deleteComent(int id) {
-		comment = null;
+		impression = null;
 		try {
-			comment = commentRepo.getCommentById(id);
-			comment.setComment("Comentario Eliminado");
-			comment.setScore(0);
-			commentRepo.save(comment);
+			imprRepo.deleteCommentId(id);
+			
+			commentRepo.deleteById(id);
 	        return true;
 		}
 		catch(NullPointerException np) {
