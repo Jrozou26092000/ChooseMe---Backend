@@ -14,23 +14,33 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
 	@Autowired
 	UsersRepository usersRepository;
 	Users user_check;
+	
 	@Override
-	public void validatorLoggin(Users user) throws ApiUnprocessableEntity {
+	public Boolean validatorLoggin(Users user) throws ApiUnprocessableEntity {
+		try {
+			user_check = usersRepository.getUserByEmail(user.getEmail());
+	
+			if(user_check == null) {
+				
+	            return false;
+	        }
+			
+			  else if(user.getEmail() == null || user.getEmail().isEmpty()) {
 
-		user_check = usersRepository.getUserByEmail(user.getEmail());
+		            return false;
+		        }
+			  else {
 
-		if(user.getEmail() == null || user.getEmail().isEmpty()) {
-			message("El correo es obligatorio");
-		}else if(user_check.getEmail().isEmpty()) {
-			message("No se encontro al usuario");
+		            return true;
+		        }
 		}
-		
-		
+		catch (NullPointerException np) {
+			
+		}
+		return false;
+	
+       
 	}
 
-	private void message(String message) throws ApiUnprocessableEntity {
-		throw new ApiUnprocessableEntity(message);
-		
-	}
 
 }

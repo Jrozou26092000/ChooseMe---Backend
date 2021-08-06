@@ -10,5 +10,5 @@ import utils.Exceptions.ApiUnprocessableEntity;
 public interface UserLogginValidator {
 
 
-	void validatorLoggin(Users userNew) throws ApiUnprocessableEntity;
+	Boolean validatorLoggin(Users userNew) throws ApiUnprocessableEntity;
 }
