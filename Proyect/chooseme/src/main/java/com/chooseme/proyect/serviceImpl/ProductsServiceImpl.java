@@ -1,9 +1,14 @@
 package com.chooseme.proyect.serviceImpl;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +22,7 @@ import com.chooseme.proyect.repository.CommentsRepository;
 import com.chooseme.proyect.repository.ProductsRepository;
 import com.chooseme.proyect.service.CategoriesService;
 import com.chooseme.proyect.service.ProductsService;
+import com.chooseme.proyect.util.ProductSorter;
 
 
 @Service
@@ -76,6 +82,63 @@ public class ProductsServiceImpl implements ProductsService {
 			commDTO.add(new CommentsDTO(c));
 		});
 		return commDTO;
+	}
+
+	@Override
+	public Iterable<Products> getProductsFilterd(ProductsFilters filter) {
+		Set<Products> searchSet = new HashSet<Products>();
+		
+		boolean firstFilter = true; 
+
+		if(!(filter.getName() == null)) {
+			Set<Products> tempSet = new HashSet<Products>();
+			findProductByCategory(filter).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
+		} 
+		if(!(filter.getStars_puntuation() == null)) {
+			Set<Products> tempSet = new HashSet<Products>();
+			findProductByScore(Double.parseDouble(filter.getStars_puntuation()), Double.parseDouble(filter.getStars_puntuation())+1).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
+		} 
+		if(!(filter.getCreate_at() == null)) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -(Integer.parseInt(filter.getCreate_at())));
+			String nowStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+			String fromStamp = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+			
+			Set<Products> tempSet = new HashSet<Products>();
+			findByDate(fromStamp,nowStamp).forEach((e) -> {
+				tempSet.add(e);
+			});
+			if (firstFilter) {
+				searchSet.addAll(tempSet);
+				firstFilter = false;
+			} else {
+				searchSet.retainAll(tempSet);
+			}
+		}
+		
+		if (searchSet.isEmpty()) {
+			return null;
+		}
+		
+		List<Products> retL = searchSet.stream().collect(Collectors.toList());
+		Collections.sort(retL, new ProductSorter());
+		return retL;
 	}
 	
 	

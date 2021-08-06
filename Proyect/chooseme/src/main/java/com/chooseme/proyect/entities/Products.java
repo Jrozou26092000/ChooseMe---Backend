@@ -34,7 +34,7 @@ public class Products {
 	@Column(name = "reviewer_id")
 	private int reviewer_id;
 	@Column(name = "photo")
-	private Blob photo;
+	private String photo;
 	@Column(name = "brand")
 	private String brand;
 	@Column(name = "name")
@@ -50,7 +50,7 @@ public class Products {
 	@Column(name = "description")
 	private String description;
 	@Column(name = "score")
-	private double score;
+	private Double score;
 	
 	
 	@OneToMany(mappedBy="product", cascade = CascadeType.ALL)
@@ -68,7 +68,7 @@ public class Products {
 		this.description = description;
 	}
 	
-	public double getScore() {
+	public Double getScore() {
 		return score;
 	}
 	public void setScore(double score) {
@@ -97,10 +97,10 @@ public class Products {
 		this.reviewer_id = reviewer_id;
 	}
 	
-	public Blob getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
-	public void setPhoto(Blob photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 	

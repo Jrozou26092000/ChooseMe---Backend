@@ -13,6 +13,10 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 	@Query("SELECT u FROM Users u WHERE u.user_name = :username")
     public Users getUserByUsername(@Param("username") String username);
 	
+	@Query(value = "SELECT * FROM users as u "
+			+ "WHERE u.user_name LIKE %:username%", nativeQuery = true)
+	public Iterable<Users> getUsersByUsername(@Param("username") String username);
+	
 	@Query("SELECT u FROM Users u WHERE u.email = :email")
     public Users getUserByEmail(@Param("email") String username);
 

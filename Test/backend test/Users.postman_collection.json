@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastname\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n}",
+					"raw": "{\r\n    \"user_name\" : \"test\",\r\n    \"email\" : \"test@chooseme.com8\",\r\n    \"password\" : \"test\",\r\n    \"passtemp\" : \"test\",\r\n    \"active\" : 1,\r\n    \"name\" : \"Juan Manuel\",\r\n    \"lastname\" : \"MVP\",\r\n    \"phone\" : \"3123456789\",\r\n    \"points\" : 100000\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,6 +87,354 @@
 			"response": []
 		},
 		{
+			"name": "out",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuLmNvcnJlYSIsImV4cCI6MTYxOTMyMTc2NCwiaWF0IjoxNjE5Mjg1NzY0fQ.ufub3SdfyZRNP7nWsXiyCg9q24TA_HEhWFSLThh8KWs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/out",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"out"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFbWFpbEVyOCIsImV4cCI6MTYxOTMxNzU4MiwiaWF0IjoxNjE5MjgxNTgyfQ.JBV7DqisKPzLZLlIDKKc0KllbckRT_2TzI-OvHOlMCg",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 82,\r\n    \"user_name\" : \"EmailEr8\",\r\n    \"password\" : \"Holabjbni57s\",\r\n    \"passtemp\" : \"jhbkkjjk23\",\r\n    \"active\" : 1,\r\n    \"name\" : \"Juan Manuel\",\r\n    \"lastname\" : \"MVP\",\r\n    \"points\" : 100000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"update"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbk1WUCIsImV4cCI6MTYxODcxNDk4MCwiaWF0IjoxNjE4Njc4OTgwfQ.q0neRKTNhtsr7AizIr6gKCIG8omuyL1QM_qBfq61Z1Q",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Perfil",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFuLmNvcnJlYSIsImV4cCI6MTYxOTMxODg4NywiaWF0IjoxNjE5MjgyODg3fQ.GQoXIf5IKoOaMrGRZZUtI57ZREyV3EMCQ9wa8UfCfJA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/perfil",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"perfil"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "loggin with email and password",
 			"request": {
 				"method": "POST",
@@ -99,7 +447,88 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\" : \"juan@prk;uv\",\r\n    \"password\" : \"12345\"\r\n}",
+					"raw": "{\r\n    \"email\" : \"test@chooseme.com8\",\r\n    \"password\" : \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/loggin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"loggin"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loggin with email and password Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"AdminMVP@chooseme.com\",\r\n    \"password\" : \"AdminMVP\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -180,7 +609,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_id\" : 1\r\n}",
+					"raw": "{\r\n    \"user_id\" : 23\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -330,6 +759,92 @@
 			"response": []
 		},
 		{
+			"name": "desactivateuser with username and password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbk1WUCIsImV4cCI6MTYxOTI0NTk5OCwiaWF0IjoxNjE5MjA5OTk4fQ.3mEPqbtGjJVnp2MNg5GDbfKug5V9HyL2FYRMV-YRzHM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\" : \"AdminMVP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/desactivate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"desactivate"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "usernamex",
+							"disabled": true
+						},
+						{
+							"key": "user_name",
+							"value": "psspruv7f",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "@com75k;fdsfdsaf",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "gabriela",
+							"disabled": true
+						},
+						{
+							"key": "active",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "pass",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "pruv",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "98765",
+							"disabled": true
+						},
+						{
+							"key": "points",
+							"value": "5689",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delet user",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -381,7 +896,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"user_name\" : \"juan.correa\",\r\n    \"email\" : \"juan@pruv\",\r\n    \"password\" : \"12345\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastame\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 1234\r\n\r\n}",
+					"raw": "{\r\n    \"user_id\" : 100,\r\n    \"user_name\" : \"AdminMVP\",\r\n    \"email\" : \"AdminMVP@CHOOSEME.COM\",\r\n    \"password\" : \"AdminMVP\",\r\n    \"passtemp\" : \"AdminMVP\",\r\n    \"active\" : 1,\r\n    \"name\" : \"juan\",\r\n    \"lastame\" : \"correa\",\r\n    \"phone\" : \"123456\",\r\n    \"points\" : 100000\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -389,7 +904,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/users/add?user_name=&email=@com11&password=123456&active=1&name=pass&lastname=pruv&phone=98765&points=5689",
+					"raw": "localhost:8080/users/add",
 					"host": [
 						"localhost"
 					],
@@ -406,35 +921,43 @@
 						},
 						{
 							"key": "user_name",
-							"value": ""
+							"value": "",
+							"disabled": true
 						},
 						{
 							"key": "email",
-							"value": "@com11"
+							"value": "@com11",
+							"disabled": true
 						},
 						{
 							"key": "password",
-							"value": "123456"
+							"value": "123456",
+							"disabled": true
 						},
 						{
 							"key": "active",
-							"value": "1"
+							"value": "1",
+							"disabled": true
 						},
 						{
 							"key": "name",
-							"value": "pass"
+							"value": "pass",
+							"disabled": true
 						},
 						{
 							"key": "lastname",
-							"value": "pruv"
+							"value": "pruv",
+							"disabled": true
 						},
 						{
 							"key": "phone",
-							"value": "98765"
+							"value": "98765",
+							"disabled": true
 						},
 						{
 							"key": "points",
-							"value": "5689"
+							"value": "5689",
+							"disabled": true
 						}
 					]
 				}
@@ -527,6 +1050,38 @@
 			"response": []
 		},
 		{
+			"name": "get users Copy",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Access-Control-Request-Headers",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Password Validation",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -613,6 +1168,101 @@
 						"users",
 						"delete",
 						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Top 5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/top5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"top5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchByName",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\" : \"e\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/search/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"search",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reviewbyuser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/user/review/45/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"review",
+						"45",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reviewbyuser Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/review/45/0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"review",
+						"45",
+						"0"
 					]
 				}
 			},

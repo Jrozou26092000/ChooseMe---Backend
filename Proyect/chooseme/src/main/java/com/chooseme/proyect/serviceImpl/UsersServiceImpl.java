@@ -1,5 +1,7 @@
 package com.chooseme.proyect.serviceImpl;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -7,7 +9,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.chooseme.proyect.dto.CommentsDTO;
 import com.chooseme.proyect.dto.UsersDTO;
+import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Users;	
 import com.chooseme.proyect.repository.UsersRepository;	
 import com.chooseme.proyect.service.UsersService;
@@ -217,11 +221,59 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 
+	@Override
+	public Iterable<UsersDTO> getTop5(){
+		Iterable<Users> user = null;
+		Collection<UsersDTO> userDTO  = new HashSet<UsersDTO>();
+		try {
+			user = usersRepository.gettop5();
+			user.forEach((c) ->{
+				userDTO.add(new UsersDTO(c));
+			});
+		}
+		catch(NullPointerException e) {
+
+		}
+		return userDTO;
+		
+	}
+	
 
 	@Override
-	public Iterable<Users> sortByName(Users user, int page) {
+	public Iterable<UsersDTO> sortByName(Users sortuser, int page) {
+		Iterable<Users> user = null;
+		Collection<UsersDTO> userDTO  = new HashSet<UsersDTO>();
+		try {
+			user = usersRepository.sortByName(sortuser.getUser_name(), page);
+			user.forEach((c) ->{
+				userDTO.add(new UsersDTO(c));
+			});
+		}
+		catch(NullPointerException e) {
 
-		return usersRepository.sortByName(user.getUser_name(), page);
+		}
+		return userDTO;
+		
+		
+	}
+
+	@Override
+	public boolean equalPassword(Users newuser, String name) {
+		user = null;
+        try {
+            user = usersRepository.getUserByUsername(name);
+            if(BCrypt.checkpw(newuser.getPassword(), user.getPassword())){
+
+                return true;
+            }
+            else {
+            	return false;
+            }
+        }
+        catch(NoSuchElementException ne) {
+        }
+        return false;
+
 	}
 	
 }
