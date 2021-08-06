@@ -15,21 +15,13 @@ import com.chooseme.proyect.filters.JwtRequestFilter;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
-	
-//	@Autowired
-//	private MyUserDetailsService myUserDetailsService;
-//
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(myUserDetailsService);
-//	}
-	
+
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        //habilita cors y dehabilita la verificación de csrf
+
         http.cors().and().csrf().disable().authorizeRequests().antMatchers("/test","/users/desactivate",
         		"/users/perfil", "/users/update","/users/out", "/users/like")
     	.authenticated().anyRequest()
@@ -43,11 +35,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         web.ignoring().antMatchers(HttpMethod.OPTIONS);
     }
 
-//	@Override
-//	@Bean
-//	public AuthenticationManager authenticationManagerBean() throws Exception {
-//		return super.authenticationManagerBean();
-//	}
+
 	
 	
 }

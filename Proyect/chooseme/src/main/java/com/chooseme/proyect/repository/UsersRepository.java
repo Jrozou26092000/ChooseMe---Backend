@@ -1,5 +1,7 @@
 package com.chooseme.proyect.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,11 +30,15 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 	
 	@Query(value = "Select * from users "
 			+ "Where user_name LIKE %:name% "
-			+ "Order by points DESC "
-			+ "LIMIT :page, 10 ", nativeQuery = true)
-	public Iterable<Users> sortByName(String name, int page);
+			+ "and active = 1 "
+			+ "Order by points DESC ", nativeQuery = true)
+	public Page<Users> sortByName(String name, Pageable page);
 
-
+	
+	@Query("SELECT c FROM Users c "
+			+ "WHERE c.user_id = :id")
+	public Users getUserById(@Param ("id") int id);
+	
 	
 	
 

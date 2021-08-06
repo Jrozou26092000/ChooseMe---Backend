@@ -12,7 +12,6 @@ public interface ProductsController {
 
 	public Iterable<Products> getProductByName(ProductsFilters Filters);
 
-	public Boolean productTest();
 
 	public Iterable<CommentsDTO> productView(Products product);
 	
@@ -21,7 +20,8 @@ public interface ProductsController {
 	public boolean productNewReview(Comments comment, String Authorization);
 	
 	public void productNewImpression (Impressions impression, String Authorization);
+
 	
-	//public boolean addProducts(Products newproducts);
+
 
 }

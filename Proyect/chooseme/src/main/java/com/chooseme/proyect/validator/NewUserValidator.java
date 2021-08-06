@@ -10,7 +10,7 @@ import utils.Exceptions.ApiUnprocessableEntity;
 /*Interface to validate the create user data */
 
 @Service
-public interface UserValidator {
+public interface NewUserValidator {
 
 
 	public Boolean validator(Users newuser) throws ApiUnprocessableEntity;

@@ -24,8 +24,6 @@ public class ImpressionsServiceImpl implements ImpressionsService{
 
 	@Override
 	public void newImpression(Impressions newImpression, String name) {
-		
-		int id;
 		user = userRepo.getUserByUsername(name);
 		if(newImpression != null) {
 				newImpression.setUser_id(user.getUser_id());

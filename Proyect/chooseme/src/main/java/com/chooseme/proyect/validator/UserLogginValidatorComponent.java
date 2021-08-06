@@ -42,9 +42,5 @@ public class UserLogginValidatorComponent implements UserLogginValidator {
        
 	}
 
-	private void message(String message) throws ApiUnprocessableEntity {
-		throw new ApiUnprocessableEntity(message);
-		
-	}
 
 }

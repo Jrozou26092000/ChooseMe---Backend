@@ -3,7 +3,6 @@ package com.chooseme.proyect.controllersImpl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -29,11 +28,11 @@ import com.chooseme.proyect.entities.Users;
 import com.chooseme.proyect.models.AuthenticationResponse;
 import com.chooseme.proyect.repository.TokensRepository;
 import com.chooseme.proyect.repository.UsersRepository;
+import com.chooseme.proyect.service.CommentsService;
 import com.chooseme.proyect.service.UsersService;
-import com.chooseme.proyect.serviceImpl.CommentsServiceImp;
 import com.chooseme.proyect.util.JwtUtil;
 import com.chooseme.proyect.validator.UserLogginValidator;
-import com.chooseme.proyect.validator.UserValidatorComponent;
+import com.chooseme.proyect.validator.NewUserValidatorComponent;
 
 import utils.Exceptions.ApiUnprocessableEntity;
 
@@ -43,9 +42,9 @@ public class UsersControllerImpl implements UsersController {
 	@Autowired
 	UsersService userService;
 	@Autowired
-	CommentsServiceImp commentsService;
+	CommentsService commentsService;
 	@Autowired
-	UserValidatorComponent userValidator;
+	NewUserValidatorComponent userValidator;
 	@Autowired
 	UserLogginValidator logginValidator;
 	@Autowired
@@ -70,10 +69,6 @@ public class UsersControllerImpl implements UsersController {
 	public Optional<Users> getUsersById(@RequestBody Users user) {
 		return userService.findUserById(user);
 	}
-	/*
-	 * este permite capturar datos desde un body request raw json
-	 * para ver la estructura, consultar la carpeta donde se encuentran los archivos de postman
-	 */
 
 	
 	
@@ -123,9 +118,7 @@ public class UsersControllerImpl implements UsersController {
 		
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		Users u = userService.findUserByName(name).get();
-//		if (u.getUser_id() != like.getUser_id() || (like.getUp_down() != -1 && like.getUp_down() != 1)) {
-//			return false;
-//		}
+
 		like.setUser_id(u.getUser_id());
 		if (like.getUp_down() != -1 && like.getUp_down() != 1) {
 			return "false";
@@ -176,14 +169,6 @@ public class UsersControllerImpl implements UsersController {
 	
 	
 	@Override
-	public List<Users> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	@Override
 	@RequestMapping(value = "/users/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateUsers(@RequestBody Users userNew, @RequestHeader String Authorization) throws ApiUnprocessableEntity {	
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
@@ -206,14 +191,8 @@ public class UsersControllerImpl implements UsersController {
 	@Override
 	@RequestMapping(value = "/users/out", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Boolean logout(@RequestHeader String Authorization) {
-//		Tokens token = new Tokens();
-//		String tokenNew = Authorization.substring(7);
-//		token.setToken(tokenNew);
-//		tokenRepo.save(token);
+
 		Tokens token = tokenRepo.getTokenByToken(Authorization.substring(7));
-//		if (token == null) {
-//			return false;
-//		}
 		tokenRepo.delete(token);
 		return true;
 	}
@@ -231,22 +210,7 @@ public class UsersControllerImpl implements UsersController {
 		return commDTO;
 	}
 	
-	
-	
-	@Override
-	@RequestMapping(value = "/users/test", method = RequestMethod.GET, produces = "application/json")
-	public Boolean justTest() {
-		return true;
-	}
-	
-	
-	// http://localhost:8080/test (GET)
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
-	@Override
-	public Boolean test() {
-		return true;
-	}
-	
+
 
 	@Override
 	@RequestMapping(value = "/products/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -267,7 +231,6 @@ public class UsersControllerImpl implements UsersController {
 	
 
 
-
 	@Override
 	@RequestMapping(value = "/review/update", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> reviewUpdate(@RequestBody Impressions impresion, @RequestHeader String Authorization){
@@ -276,7 +239,7 @@ public class UsersControllerImpl implements UsersController {
 		String name = jwtTokenUtil.extractUsername(Authorization.substring(7));
 		
 		
-		if(commentsService.update(impresion)) {
+		if(commentsService.update(impresion, name)) {
 			return ResponseEntity.ok("ok");
 		}
 		

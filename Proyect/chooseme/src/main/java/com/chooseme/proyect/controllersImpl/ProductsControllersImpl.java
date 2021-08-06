@@ -48,17 +48,6 @@ public class ProductsControllersImpl implements ProductsController {
 		return productService.getProductsFilterd(filter);
 		
 	}
-	
-	
-
-	@Override
-	@RequestMapping(value = "/products/test", method = RequestMethod.GET, produces = "application/json")
-	public Boolean productTest() {
-		return true;
-	}
-	
-	
-	
 
 	@Override
 	@RequestMapping(value = "/product_view", produces = "application/json")

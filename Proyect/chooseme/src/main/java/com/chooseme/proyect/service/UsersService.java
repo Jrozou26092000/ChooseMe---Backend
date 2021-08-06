@@ -21,10 +21,6 @@ public interface UsersService {
 	//public Users saveUser(Users usersNew);
 	// Actrualiza el usuario existente
 	public String updateUsers(Users userNew, String name, String newToken) throws ApiUnprocessableEntity;
-
-	//borra un usuario ingresando su contraseña y su id
-
-
 	public Boolean logginUser(Users userNew);
 	public Boolean deleteUsers(Users userDelete, String name);
 	public Users saveUser(Users usersNew);

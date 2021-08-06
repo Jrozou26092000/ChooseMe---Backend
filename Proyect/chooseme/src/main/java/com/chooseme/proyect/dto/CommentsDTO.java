@@ -1,36 +1,21 @@
 package com.chooseme.proyect.dto;
 
-import java.io.Serializable;
-import java.sql.Blob;
-import java.sql.Timestamp;
+
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import com.chooseme.proyect.entities.Comments;
 import com.chooseme.proyect.entities.Impressions;
-import com.chooseme.proyect.entities.Products;
-import com.chooseme.proyect.entities.Users;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-
-public class CommentsDTO implements Serializable {
+public class CommentsDTO {
 	
 	private int comment_id;
 	private String comment;
 	private String created_at;
 	private int reviewer_id;
 	private Integer score;
-//	private int up_down;
 	private int ups;
 	private int downs;
 	private int product_id;
@@ -47,7 +32,6 @@ public class CommentsDTO implements Serializable {
 		this.created_at = created_at;
 		this.reviewer_id = reviewer_id;
 		this.score = score;
-//		this.up_down = up_down;
 		this.ups = ups;
 		this.downs = downs;
 		this.product_id = product_id;
@@ -63,7 +47,6 @@ public class CommentsDTO implements Serializable {
 		this.created_at = comm.getCreated_at().toString();
 		this.reviewer_id = comm.getReviewerid();
 		this.score = comm.getScore();
-//		this.up_down = comm.getUp_down();
 		this.ups = comm.getUps();
 		this.downs = comm.getDowns();
 		this.product_id = comm.getProduct_id();
@@ -107,12 +90,6 @@ public class CommentsDTO implements Serializable {
 	public void setScore(int score) {
 		this.score = score;
 	}
-//	public int getUp_down() {
-//		return up_down;
-//	}
-//	public void setUp_down(int up_down) {
-//		this.up_down = up_down;
-//	}
 	
 	public int getProduct_id() {
 		return product_id;
