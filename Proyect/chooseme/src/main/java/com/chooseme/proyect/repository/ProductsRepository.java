@@ -44,8 +44,12 @@ public interface ProductsRepository extends CrudRepository<Products, Integer> {
 	public Iterable<Products> getByDate(@Param ("create_atStart") String create_atStart, @Param ("create_atEnd") String create_atEnd);
 
 	
-	
-	@Query(value = "SELECT * FROM products WHERE product_id = :id", nativeQuery=true)
+	@Query(value = 	"SELECT p.product_id, p.brand, p.name, p.created_at, p.active, p.photo, p.price, p.description, p.verified, p.reviewer_id, IFNULL(AVG(s.score),-1) AS score FROM product_types as pt "
+			+ "JOIN products as p ON p.product_id = pt.product_id  "
+			+ "JOIN types as t ON pt.type_id = t.type_id "
+			+ "LEFT JOIN comments as s ON p.product_id = s.product_id "
+			+ "WHERE p.product_id = :id "
+			+ "GROUP BY p.product_id ", nativeQuery  = true)
 	public Products searchByIdx(@Param ("id") int id);
 	
 	
