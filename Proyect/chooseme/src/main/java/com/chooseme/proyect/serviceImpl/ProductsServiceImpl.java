@@ -140,6 +140,11 @@ public class ProductsServiceImpl implements ProductsService {
 		Collections.sort(retL, new ProductSorter());
 		return retL;
 	}
+
+	@Override
+	public Products searchById(int id) {
+		return productRepository.searchByIdx(id);
+	}
 	
 	
 	

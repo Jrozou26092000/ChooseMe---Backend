@@ -42,6 +42,11 @@ public interface ProductsRepository extends CrudRepository<Products, Integer> {
 		+ "GROUP BY p.product_id "
 		+ "ORDER BY score DESC", nativeQuery  = true)
 	public Iterable<Products> getByDate(@Param ("create_atStart") String create_atStart, @Param ("create_atEnd") String create_atEnd);
+
+	
+	
+	@Query(value = "SELECT * FROM products WHERE product_id = :id", nativeQuery=true)
+	public Products searchByIdx(@Param ("id") int id);
 	
 	
 

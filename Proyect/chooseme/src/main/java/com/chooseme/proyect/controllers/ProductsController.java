@@ -21,6 +21,9 @@ public interface ProductsController {
 	
 	public void productNewImpression (Impressions impression, String Authorization);
 
+
+	public Products searchProductById(int id);
+
 	
 
 

@@ -93,7 +93,11 @@ public class ProductsControllersImpl implements ProductsController {
 	}
 	
 	
-	
+	@Override
+	@RequestMapping(value = "/product/{id}")
+	public Products searchProductById(@PathVariable("id") int id) {
+		return productService.searchById(id);	
+	}
 	
 	
 

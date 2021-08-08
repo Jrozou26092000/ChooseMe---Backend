@@ -12,6 +12,7 @@ public interface ProductsService {
 	public Iterable<Products> findByDate(String timeStamp, String timeStamp2);
 	public Iterable<CommentsDTO> ProductView(Products product);
 	public Iterable<Products> getProductsFilterd(ProductsFilters filter);
+	public Products searchById(int id);
 
 
 }
